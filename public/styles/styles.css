@@ -1,0 +1,45 @@
+.list-group-item {
+  line-height: 2.5;
+}
+  /* label color */
+  .input-field label {
+    color: rgb(201, 201, 201);
+  }
+  /* label focus color */
+  .input-field input[type=text]:focus + label {
+    color: rgb(255, 255, 255);
+  }
+  /* label underline focus color */
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid rgb(53, 188, 203);
+    box-shadow: 0 1px 0 0 rgb(37, 124, 191);
+  }
+  /* valid color */
+  .input-field input[type=text].valid {
+    border-bottom: 1px solid rgb(36, 194, 171);
+    box-shadow: 0 1px 0 0 rgb(36, 155, 147);
+  }
+  /* invalid color */
+.input-field input[type=text].invalid {
+  border-bottom: 1px solid rgb(235, 38, 38);
+  box-shadow: 0 1px 0 0 rgb(174, 53, 53);
+}
+  /* icon prefix focus color */
+.input-field .prefix.active {
+  color: rgb(30, 146, 159);
+}
+.indicator {
+  background-color: cyan !important;
+}
+.tabs {
+  background-color: #546e7a !important;
+}
+.tabs .tab a{
+color: aliceblue !important;
+}
+.material-icons{
+  color: aliceblue !important;
+}
+body{
+  background-color: #29b6f6;
+}
