@@ -4,6 +4,7 @@
     "password": "root",
     "database": "give_your_nails_hope",
     "host": "localhost",
+    "port": 3307,
     "dialect": "mysql"
   },
   "test": {
