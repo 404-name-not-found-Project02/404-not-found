@@ -1,143 +1,64 @@
-<header>
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Logo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-      </ul>
-    </div>
-  </nav>
-</header>
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
+      <form class="login100-form validate-form">
+        <span class="login100-form-title p-b-55">
+          Login
+        </span>
 
-<div id="home">
-  {{!-- //sidenav --}}
-  <ul id="slide-out" class="sidenav cyan darken-2 z-depth-1 sidenav-fixed">
-    <nav>
-      <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Logo</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-        </ul>
-      </div>
-    </nav>
-    <li>
-      <a href="#!">First Sidebar Link</a>
-    </li>
-    <li>
-      <a href="#!">Second Sidebar Link</a>
-    </li>
-  </ul>
-  <a href="#" data-target="slide-out" class="sidenav-trigger">
-    <i class="material-icons">menu</i>
-  </a>
-  {{!-- //sidenav ^^^ --}} {{!-- //login vvv --}}
-  <div class="container">
-    <div class="row">
-      <div class="col m6 s12 l6 offset-m3 offset-l5">
-        <div class="card hoverable z-depth-5">
-          {{!--
-          <div class="card-content center-align">
-            <p>Welcome to "Client And You!"</p>
-          </div> --}}
-          <div class="card-tabs">
-            <ul class="tabs tabs-fixed-width">
-              <li class="tab">
-                <a class="active" href="#login">Login</a>
-              </li>
-              <li class="tab">
-                <a href="#register">Register</a>
-              </li>
-            </ul>
-          </div>
-          <div class="card-content blue-grey darken-1 left-align">
-            <div id="login">
-              <div class="row">
-                <form class="col s12">
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <i class="material-icons prefix">email</i>
-                      <input id="email" type="email" class="validate">
-                      <label for="email">Email</label>
-                    </div>
-                    <div class="input-field col s12">
-                      <i class="material-icons prefix">vpn_key</i>
-                      <input id="pass" type="password">
-                      <label for="pass">Password</label>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div id="register">
-              <div class="card-tabs">
-                {{!-- tabs-fixed-width --}}
-                <ul class="tabs tabs-fixed-width">
-                  <li class="tab">
-                    <a class="active" href="#emailPage">Email</a>
-                  </li>
-                  <li class="tab">
-                    <a href="#phonePage">Phone</a>
-                  </li>
-                </ul>
-                <br>
-              </div>
-              <br>
-              <div id="emailPage">
-                <div class="row">
-                  <form class="col s12">
-                    <div class="row">
-                      <div class="input-field col s6">
-                        <input id="first_name" type="text" class="validate">
-                        <label for="first_name">First Name</label>
-                      </div>
-                      <div class="input-field col s6">
-                        <input id="last_name" type="text" class="validate">
-                        <label for="last_name">Last Name</label>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="input-field col s12">
-                        <i class="material-icons prefix">email</i>
-                        <input id="emailReg" type="email" class="validate">
-                        <label for="emailReg">E-Mail</label>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="input-field col s12">
-                        <i class="material-icons prefix">vpn_key</i>
-                        <input id="password" type="password" class="validate">
-                        <label for="password">Password</label>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div id="phonePage">
-                <div class="row">
-                  <form class="col s12">
-                    <div class="row">
-                      <div class="input-field col s6">
-                        <input id="first_namePhone" type="text" class="validate">
-                        <label for="first_namePhone">First Name</label>
-                      </div>
-                      <div class="input-field col s6">
-                        <input id="last_namePhone" type="text" class="validate">
-                        <label for="last_namePhone">Last Name</label>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="input-field col s12">
-                        <i class="material-icons prefix">phone</i>
-                        <input id="icon_telephone" type="tel" class="validate">
-                        <label for="icon_telephone">Telephone</label>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="wrap-input100 validate-input m-b-16" data-validate="Valid email is required: ex@abc.xyz">
+          <input class="input100" type="text" name="email" placeholder="Email">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <span class="lnr lnr-envelope"></span>
+          </span>
         </div>
-      </div>
+
+        <div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
+          <input class="input100" type="password" name="pass" placeholder="Password">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <span class="lnr lnr-lock"></span>
+          </span>
+        </div>
+
+        <div class="contact100-form-checkbox m-l-4">
+          <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+          <label class="label-checkbox100" for="ckb1">
+            Remember me
+          </label>
+        </div>
+
+        <div class="container-login100-form-btn p-t-25">
+          <button class="login100-form-btn">
+            Login
+          </button>
+        </div>
+
+        <div class="text-center w-full p-t-115">
+          <span class="txt1">
+            Not a member?
+          </span>
+
+          <a class="txt1 bo1 hov1" href="/views/signup.handlebars">
+            Sign up now
+          </a>
+        </div>
+      </form>
     </div>
   </div>
-  {{!-- //Login --}}
 </div>
+
+<script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAStUYCK4F4Tc14FfGOWDRVlgxHdvwxwpo",
+    authDomain: "name-not-found.firebaseapp.com",
+    databaseURL: "https://name-not-found.firebaseio.com",
+    projectId: "name-not-found",
+    storageBucket: "name-not-found.appspot.com",
+    messagingSenderId: "296392176918"
+  };
+  firebase.initializeApp(config);
+</script>
