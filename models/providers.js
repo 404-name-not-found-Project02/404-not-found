@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
 Providers.associate = function(models) {
   // Associating Providers with Appointments
   // When a Provider is deleted, also delete any associated Appointments - we may not want to do this
-  Author.hasMany(models.Post, {
+  Providers.hasMany(models.Appointments, {
     onDelete: "cascade"
   });
 };
