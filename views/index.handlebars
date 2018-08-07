@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" id="navbarLogo" href="#">SaveSpace</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -26,7 +25,7 @@
         </span>
 
         <div class="wrap-input100 validate-input m-b-16" data-validate="Valid email is required: ex@abc.xyz">
-          <input class="input100" type="text" name="email" placeholder="Email">
+          <input class="input100" type="text" name="email" placeholder="Email" id="email">
           <span class="focus-input100"></span>
           <span class="symbol-input100">
             <span class="lnr lnr-envelope"></span>
@@ -34,7 +33,7 @@
         </div>
 
         <div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
-          <input class="input100" type="password" name="pass" placeholder="Password">
+          <input class="input100" type="password" name="pass" placeholder="Password" id="password">
           <span class="focus-input100"></span>
           <span class="symbol-input100">
             <span class="lnr lnr-lock"></span>
@@ -49,7 +48,7 @@
         </div>
 
         <div class="container-login100-form-btn p-t-25">
-          <button class="login100-form-btn">
+          <button class="login100-form-btn" id="login">
             Login
           </button>
         </div>
@@ -67,17 +66,3 @@
     </div>
   </div>
 </div>
-
-<script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAStUYCK4F4Tc14FfGOWDRVlgxHdvwxwpo",
-    authDomain: "name-not-found.firebaseapp.com",
-    databaseURL: "https://name-not-found.firebaseio.com",
-    projectId: "name-not-found",
-    storageBucket: "name-not-found.appspot.com",
-    messagingSenderId: "296392176918"
-  };
-  firebase.initializeApp(config);
-</script>

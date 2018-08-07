@@ -4,12 +4,12 @@
     "password": "root",
     "database": "give_your_nails_hope",
     "host": "localhost",
-    "port": 3307,
+    "port": 3306,
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": null,
+    "password": "root",
     "database": "testdb",
     "host": "localhost",
     "dialect": "mysql",
