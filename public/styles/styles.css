@@ -9,3 +9,7 @@
 #navbarLogo {
   font-size: 36px !important;
 }
+
+.lowercase {
+    text-transform: lowercase !important;
+}

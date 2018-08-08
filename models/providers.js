@@ -1,9 +1,24 @@
 module.exports = function(sequelize, DataTypes) {
   var Providers = sequelize.define("Providers", {
-    last_name: DataTypes.STRING,
-    first_name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    brand_name: DataTypes.STRING
+    last_name: {
+      type: DataTypes.STRING,
+      is: /^[a-z]+$/i
+    },
+    first_name: {
+      type: DataTypes.STRING,
+      is: /^[a-z]+$/i
+    },
+    email: {
+      type: DataTypes.STRING,
+      isEmail: true
+    },
+    brand_name: {
+      type: DataTypes.STRING,
+      isAlphanumeric: true 
+    },
+    firebase_id: {
+      type: DataTypes.STRING
+    } 
   }, {
     freezeTableName: true
   }

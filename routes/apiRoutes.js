@@ -35,12 +35,27 @@ module.exports = function(app) {
     });
   });
 
-  // Delete an appointment by id
+  // Delete a client by id
   app.delete("/api/clients/:id", function(req, res) {
-    db.Appointments.destroy({ where: { id: req.params.id } }).then(function(dbClients) {
+    db.Clients.destroy({ where: { id: req.params.id } }).then(function(dbClients) {
       res.json(dbClients);
     });
   });
 };
 
 // will create the rest, but thinking they might want to be in their own .js files to keep things in order
+// create a new note
+
+// update a note
+
+// delete a note
+
+// show note by client id
+
+// create a new supply
+
+// update a supply
+
+// delete a supply
+
+// show supply by client id
