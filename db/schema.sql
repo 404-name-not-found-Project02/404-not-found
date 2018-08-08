@@ -1,6 +1,6 @@
-CREATE DATABASE give_your_nails_hope;
+CREATE DATABASE client_and_me;
 
-USE DATABASE give_your_nails_hope;
+USE DATABASE client_and_me;
 
 CREATE TABLE providers(
     id int NOT NULL AUTO_INCREMENT,
