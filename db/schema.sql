@@ -1,5 +1,7 @@
 CREATE DATABASE clientandme;
 
+USE clientandme;
+
 CREATE TABLE providers(
     id int NOT NULL AUTO_INCREMENT,
     last_name varchar(100) NOT NULL,
