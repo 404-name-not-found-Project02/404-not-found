@@ -4,19 +4,22 @@ module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
     db.Appointments.findAll({}).then(function(dbAppointments) {
-      res.render("index", {
-        msg: "Welcome!",
-        examples: dbAppointments
-      });
+      res.render("index");
     });
   });
 
     // Load signup page
     app.get("/signup", function(req, res) {
       db.Appointments.findAll({}).then(function(dbAppointments) {
-        res.render("signup", {
-          msg: "Welcome!",
-          examples: dbAppointments
+        res.render("signup");
+      });
+    });
+
+    // load dashboard page
+    app.get("/dashboard", function(req, res) {
+      db.Clients.findAll({}).then(function(dbClients) {
+        res.render("dashboard", {
+          msg: "hi"
         });
       });
     });

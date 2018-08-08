@@ -9,7 +9,9 @@ module.exports = function(app) {
   });
   // Get all clients
   app.get("/api/clients", function(req, res) {
-    db.Clients.findAll({}).then(function(dbClients) {
+    db.Clients.findAll({
+      // where: {firebase_id}
+    }).then(function(dbClients) {
       res.json(dbClients);
     });
   });
