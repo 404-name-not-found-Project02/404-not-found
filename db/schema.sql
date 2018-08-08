@@ -1,6 +1,6 @@
 CREATE DATABASE clientandme;
 
-USE DATABASE clientandme;
+USE clientandme;
 
 CREATE TABLE providers(
     id int NOT NULL AUTO_INCREMENT,
