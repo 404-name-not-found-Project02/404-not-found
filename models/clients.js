@@ -1,7 +1,13 @@
 module.exports = function(sequelize, DataTypes) {
     var Clients = sequelize.define("Clients", {
-      last_name: DataTypes.STRING,
-      first_name: DataTypes.STRING,
+      last_name: {
+        type: DataTypes.STRING,
+        is: /^[a-z]+$/i
+      },
+      first_name: {
+        type: DataTypes.STRING,
+        is: /^[a-z]+$/i
+      },
     }, {
       freezeTableName: true
     }

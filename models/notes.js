@@ -1,6 +1,13 @@
 module.exports = function(sequelize, DataTypes) {
     var Notes = sequelize.define("Notes", {
-     note: DataTypes.STRING
+     note: {
+      type: DataTypes.STRING,
+      is: /^[a-z]+$/i,
+      validate: {
+        len: [1]
+      }
+
+    },
     }, {
       freezeTableName: true
     }
