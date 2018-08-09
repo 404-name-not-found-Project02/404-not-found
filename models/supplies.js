@@ -1,12 +1,12 @@
-module.exports = function(sequelize, DataTypes) {
-    var Supplies = sequelize.define("Supplies", {
+module.exports = function (sequelize, DataTypes) {
+  var Supplies = sequelize.define("Supplies", {
     //verify this is the correct one
-      appointment_date: DataTypes.DATE
-    }, {
+    supply_used: DataTypes.STRING
+  }, {
       freezeTableName: true
     }
   );
-  Supplies.associate = function(models) {
+  Supplies.associate = function (models) {
     // We're saying that an appointment should belong to a provider
     // An appointment can't be created without a provider due to the foreign key constraint
     Supplies.belongsTo(models.Providers, {
@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
   };
-  Supplies.associate = function(models) {
+  Supplies.associate = function (models) {
     // We're saying that an appointment should belong to a provider
     // An appointment can't be created without a provider due to the foreign key constraint
     Supplies.belongsTo(models.Clients, {
@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
   };
-  Supplies.associate = function(models) {
+  Supplies.associate = function (models) {
     // We're saying that an appointment should belong to a provider
     // An appointment can't be created without a provider due to the foreign key constraint
     Supplies.belongsTo(models.Appointments, {
@@ -33,5 +33,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
   };
-    return Supplies;
-  };
+  return Supplies;
+};

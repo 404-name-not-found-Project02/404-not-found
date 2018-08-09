@@ -1,45 +1,46 @@
 var db = require("../models");
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Get all appointments
-  app.get("/api/appointments", function(req, res) {
-    db.Appointments.findAll({}).then(function(dbAppointments) {
+  app.get("/api/appointments/:id", function (req, res) {
+    db.Appointments.findAll({ where: { ProviderId: req.params.id } }).then(function (dbAppointments) {
       res.json(dbAppointments);
+      return (dbAppointments);
     });
   });
   // Get all clients
-  app.get("/api/clients", function(req, res) {
+  app.get("/api/clients", function (req, res) {
     db.Clients.findAll({
       // where: {firebase_id}
-    }).then(function(dbClients) {
+    }).then(function (dbClients) {
       res.json(dbClients);
     });
   });
 
   // Create a new appointment
-  app.post("/api/appointments", function(req, res) {
-    db.Appointments.create(req.body).then(function(dbAppointments) {
+  app.post("/api/appointments", function (req, res) {
+    db.Appointments.create(req.body).then(function (dbAppointments) {
       res.json(dbAppointments);
     });
   });
 
-   // Create a new client
-   app.post("/api/clients", function(req, res) {
-    db.Clients.create(req.body).then(function(dbClients) {
+  // Create a new client
+  app.post("/api/clients", function (req, res) {
+    db.Clients.create(req.body).then(function (dbClients) {
       res.json(dbClients);
     });
   });
 
   // Delete an appointment by id
-  app.delete("/api/appointments/:id", function(req, res) {
-    db.Appointments.destroy({ where: { id: req.params.id } }).then(function(dbAppointments) {
+  app.delete("/api/appointments/:id", function (req, res) {
+    db.Appointments.destroy({ where: { id: req.params.id } }).then(function (dbAppointments) {
       res.json(dbAppointments);
     });
   });
 
   // Delete a client by id
-  app.delete("/api/clients/:id", function(req, res) {
-    db.Clients.destroy({ where: { id: req.params.id } }).then(function(dbClients) {
+  app.delete("/api/clients/:id", function (req, res) {
+    db.Clients.destroy({ where: { id: req.params.id } }).then(function (dbClients) {
       res.json(dbClients);
     });
   });
