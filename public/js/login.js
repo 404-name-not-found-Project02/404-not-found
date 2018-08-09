@@ -17,6 +17,12 @@ $("#login").on("click", function (event) {
     console.log("clicked the button");
 });
 
+$("#signup").on("click", function (event) {
+    event.preventDefault();
+    handleSignUp();
+    console.log("clicked the button");
+});
+
 function signUp() {
     firebase.auth().createUserWithEmailAndPassword(userName, password).catch(function (error) {
         // Handle Errors here.
@@ -107,8 +113,11 @@ function initApp() {
 }
 
 function handleSignUp() {
-    var email = $('#email').val().trim();
-    var password = $('#password').val().trim();
+    var email = $("#signup-email").val().trim();
+    var password = $("#signup-password").val().trim();
+    var firstName = $("#first-name").val().trim();
+    var lastName = $("#last-name").val().trim();
+    var brand = $("#brand").val().trim();
     if (email.length < 4) {
         alert('Please enter an email address.');
         return;
