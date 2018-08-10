@@ -10,6 +10,10 @@
   background-color: #648c9f !important;
 }
 
+.logOut {
+  padding-right:25px !important;
+}
+
 .list-group-item {
   line-height: 2.5;
 }
@@ -49,5 +53,21 @@
 }
 
 .warning {
+  padding-top: 60px !important;
+}
+
+.profile {
+  padding-top: 60px !important;
+}
+
+.profileName {
+  font-size: 28px;
+}
+
+.appointments {
+  padding: 40px !important;
+}
+
+.calendar {
   padding-top: 60px !important;
 }
