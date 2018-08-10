@@ -1,41 +1,26 @@
-.navbar {
-  background-color: #6f8c9f !important;
+.list-group-item {
+  line-height: 2.5;
 }
 
-#navbarLink {
-  font-size: 24px !important;
+  /* icon prefix focus color */
+.input-field .prefix.active {
+  color: rgb(30, 146, 159);
 }
-
-#navbarLogo {
-  font-size: 36px !important;
+.indicator {
+  background-color: rgb(255, 255, 255) !important;
 }
-
-.lowercase {
-  text-transform: lowercase !important;
+.tabs {
+  background-color: #648c9f !important;
 }
-
-.brandBar {
-  text-align: center;
-  font-size: 36px;
-  border-bottom: solid #6f8c9f;
+.tabs .tab a{
+color: aliceblue !important;
 }
-
-.profileSummary {
-  padding-top: 4em;
-  padding-bottom: 4em;
+.brand-logo{
+  padding-left: 25px !important;
 }
-
-.calendarCard {
-  padding-top: 4em;
-  padding-bottom: 2em;
-  margin-right: 4em;
+.login{
+  margin-top: 100px;
 }
-
-.profileBorder {
-  border-color: #6f8c9f;
-  border-style: solid;
-}
-
-.customerTable {
-  /* border: solid #6f8c9f; */
+.nav-wrapper {
+  background-color: #648c9f !important;
 }
