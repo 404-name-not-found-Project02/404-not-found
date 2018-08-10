@@ -11,5 +11,31 @@
 }
 
 .lowercase {
-    text-transform: lowercase !important;
+  text-transform: lowercase !important;
+}
+
+.brandBar {
+  text-align: center;
+  font-size: 36px;
+  border-bottom: solid #6f8c9f;
+}
+
+.profileSummary {
+  padding-top: 4em;
+  padding-bottom: 4em;
+}
+
+.calendarCard {
+  padding-top: 4em;
+  padding-bottom: 2em;
+  margin-right: 4em;
+}
+
+.profileBorder {
+  border-color: #6f8c9f;
+  border-style: solid;
+}
+
+.customerTable {
+  /* border: solid #6f8c9f; */
 }
