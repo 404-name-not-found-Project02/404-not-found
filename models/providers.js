@@ -19,14 +19,6 @@ module.exports = function (sequelize, DataTypes) {
     firebase_id: {
       type: DataTypes.STRING
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      default: DataTypes.NOW
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      default: DataTypes.NOW
-    },
   }, {
       freezeTableName: true
     }
