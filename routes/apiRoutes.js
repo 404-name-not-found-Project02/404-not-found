@@ -10,8 +10,8 @@ module.exports = function (app) {
   });
   // Get all clients
   app.get("/api/clients", function (req, res) {
-    db.Clients.findAll({
-      // where: {firebase_id}
+    db.Appointments.findAll({
+      // where: {firebase_id} and just display the clients column
     }).then(function (dbClients) {
       res.json(dbClients);
     });
@@ -25,11 +25,11 @@ module.exports = function (app) {
   });
 
   // Create a new client
-  app.post("/api/clients", function (req, res) {
-    db.Clients.create(req.body).then(function (dbClients) {
-      res.json(dbClients);
-    });
-  });
+  // app.post("/api/clients", function (req, res) {
+  //   db.Clients.create(req.body).then(function (dbClients) {
+  //     res.json(dbClients);
+  //   });
+  // });
 
   // Delete an appointment by id
   app.delete("/api/appointments/:id", function (req, res) {
@@ -39,26 +39,10 @@ module.exports = function (app) {
   });
 
   // Delete a client by id
-  app.delete("/api/clients/:id", function (req, res) {
-    db.Clients.destroy({ where: { id: req.params.id } }).then(function (dbClients) {
-      res.json(dbClients);
-    });
-  });
+  // app.delete("/api/clients/:id", function (req, res) {
+  //   db.Clients.destroy({ where: { id: req.params.id } }).then(function (dbClients) {
+  //     res.json(dbClients);
+  //   });
+  // });
 };
 
-// will create the rest, but thinking they might want to be in their own .js files to keep things in order
-// create a new note
-
-// update a note
-
-// delete a note
-
-// show note by client id
-
-// create a new supply
-
-// update a supply
-
-// delete a supply
-
-// show supply by client id
