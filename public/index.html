@@ -3,44 +3,84 @@
 
 <head>
     <meta charset="utf-8">
+    <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="/public/images/favicon.png">
+    <!-- Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"> -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="./styles/slideshow.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="./styles/styles.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Domine" rel="stylesheet">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
-    <link rel="stylesheet" href="./styles/styles.css" media="screen" title="no title" charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
 
     <title>client&me</title>
 </head>
 
-<body>
+<body id="page">
+
+    <!-- background image code -->
+    <ul class="cb-slideshow">
+        <li>
+            <span>Image 01</span>
+        </li>
+        <li>
+            <span>Image 02</span>
+        </li>
+        <li>
+            <span>Image 03</span>
+        </li>
+        <li>
+            <span>Image 04</span>
+        </li>
+        <li>
+            <span>Image 05</span>
+        </li>
+        <li>
+            <span>Image 06</span>
+        </li>
+        <li>
+            <span>Image 07</span>
+        </li>
+        <li>
+            <span>Image 08</span>
+        </li>
+        <li>
+            <span>Image 09</span>
+        </li>
+        <li>
+            <span>Image 10</span>
+        </li>
+    </ul>
+
+    <!-- navbar code -->
     <header>
         <nav>
             <div class="nav-wrapper offset-s1">
-                <a href="#" class="brand-logo">Logo</a>
+                <a href="#" class="brand-logo font">client&me</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                 </ul>
             </div>
         </nav>
     </header>
+
+    <!-- login & signup card code -->
     <div id="home">
-        <div class="container">
+        <div class="container font">
             <div class="row login">
-                <div class="col m6 s12 l6 offset-m3 offset-l3">
-                    <div class="card hoverable z-depth-2 scale-transition scale-out" id="login-card">
+                <div class="col m6 s12 l6 offset-m6 offset-l3">
+                    <div class="card hoverable z-depth-1 scale-transition scale-out" id="login-card">
                         <div class="card-tabs">
                             <ul class="tabs tabs-fixed-width">
                                 <li class="tab">
-                                    <a class="active" href="#login">Login</a>
+                                    <a class="active" href="#login">login</a>
                                 </li>
                                 <li class="tab">
-                                    <a href="#register">Register</a>
+                                    <a href="#register">register</a>
                                 </li>
                             </ul>
                         </div>
@@ -91,16 +131,30 @@
                                             </div>
                                             <div class="row">
                                                 <div class="input-field col s12">
+                                                    <i class="material-icons prefix">account_circle</i>
+                                                    <input id="brand_name" type="text" class="validate">
+                                                    <label for="brand_name">Brand Name (e.g. Nails by Jenn or Premium Training)</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
                                                     <i class="material-icons prefix">vpn_key</i>
                                                     <input id="password" type="password" class="validate">
                                                     <label for="password">Password</label>
                                                 </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">vpn_key</i>
+                                                    <input id="password" type="password" class="validate">
+                                                    <label for="password">Confirm Password</label>
+                                                </div>
+                                            </div>
                                                 <div class="center-align">
                                                     <a class="waves-effect waves-light btn">Sign-Up
                                                         <i class="material-icons right">send</i>
                                                     </a>
                                                 </div>
-                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -118,6 +172,7 @@
     <script src="js/login.js" type="text/javascript"></script>
     <script src="js/validate.js" type="text/javascript"></script>
     <script>
+
         $(document).ready(function () {
             M.AutoInit();
             $("#login-card").attr("class", "card hoverable z-depth-2 scale-transition scale-in")

@@ -1,26 +1,53 @@
+.font {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.center {
+  text-align: center !important;
+}
+
+.brandColor {
+  background-color: #648c9f !important;
+}
+
 .list-group-item {
   line-height: 2.5;
 }
 
-  /* icon prefix focus color */
+/* icon prefix focus color */
+
 .input-field .prefix.active {
   color: rgb(30, 146, 159);
 }
+
 .indicator {
   background-color: rgb(255, 255, 255) !important;
 }
+
 .tabs {
   background-color: #648c9f !important;
 }
-.tabs .tab a{
-color: aliceblue !important;
+
+.tabs .tab a {
+  color: aliceblue !important;
 }
-.brand-logo{
+
+.brand-logo {
   padding-left: 25px !important;
 }
-.login{
+
+.login {
   margin-top: 100px;
 }
+
 .nav-wrapper {
   background-color: #648c9f !important;
+}
+
+.btn {
+  background-color: #648c9f !important;
+}
+
+.warning {
+  padding-top: 60px !important;
 }
