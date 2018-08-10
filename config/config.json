@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "mysqlroot",
+    "password": "root",
     "database": "clientandme",
     "host": "localhost",
     "port": 3306,
