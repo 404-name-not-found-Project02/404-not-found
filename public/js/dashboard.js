@@ -27,8 +27,9 @@ var seedAppointments = function () {
     // console.log(appointments);
 };
 
-// document ready function
-$(document).ready(function () {
+
+// Build table function
+function renderTable() {
 
     seedAppointments();
 
@@ -68,7 +69,7 @@ $(document).ready(function () {
 
         id = $(this).attr("id");
 
-            var string = "<div id='appt'> \
+        var string = "<div id='appt'> \
                             <div id='apptType'> \
                                 <div class='row'> \
                                     <form class='col s12'> \
@@ -104,11 +105,14 @@ $(document).ready(function () {
                             </div> \
                         </div>";
 
-            $("#newAppt").html(string);
+        $("#newAppt").html(string);
 
-        });
+    });
 
+};
+
+
+// document ready function
+$(document).ready(function () {
+    renderTable();
 });
-
-
-
