@@ -18,7 +18,7 @@ $(document).ready(function () {
         //     alert('selected ' + startDate.format() + ' to ' + endDate.format());
         // },
         select: function (start, end) {
-            var title = prompt('Event Title:');
+            var title = prompt('Client Name:');
             var eventData;
             if (title) {
                 eventData = {
@@ -27,6 +27,7 @@ $(document).ready(function () {
                     end: end
                 };
                 $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                console.log(eventData)
             }
             $('#calendar').fullCalendar('unselect');
         },
@@ -91,3 +92,10 @@ $(document).ready(function () {
     });
 
 });
+
+function createAppointment(Post) {
+
+    $.post("/api/appointments", Post, function () {
+
+    });
+}
