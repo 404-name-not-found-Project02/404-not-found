@@ -84,15 +84,17 @@ function initApp() {
     // [START authstatelistener]
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            // User is signed in.
+            console.log("User is signed in.")
             // var displayName = user.displayName;
             // var email = user.email;
             var emailVerified = true;
+            $("#loginMessage").text("Already Logged In! Redirecting to your Dashboard!");
             //user.emailVerified;
             // var photoURL = user.photoURL;
             // var isAnonymous = user.isAnonymous;
             // var uid = user.uid;
             // var providerData = user.providerData;
+            window.location = 'dashboard.html';
             // [START_EXCLUDE]
 
             if (!emailVerified) {
@@ -150,3 +152,7 @@ function handleSignUp() {
     });
     // [END createwithemail]
 }
+
+$(document).ready(function () {
+    console.log(firebase.auth())
+});
