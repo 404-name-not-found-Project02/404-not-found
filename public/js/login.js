@@ -1,3 +1,5 @@
+import { SSL_OP_CIPHER_SERVER_PREFERENCE } from "constants";
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyAStUYCK4F4Tc14FfGOWDRVlgxHdvwxwpo",
@@ -191,6 +193,7 @@ function handleSignUp() {
 $(document).ready(function () {
     console.log(firebase.auth())
 });
+<<<<<<< Updated upstream
 
 function createUser(Post) {
 
@@ -198,3 +201,5 @@ function createUser(Post) {
 
     });
 }
+=======
+>>>>>>> Stashed changes
