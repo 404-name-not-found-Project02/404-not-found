@@ -20,10 +20,15 @@ module.exports = function (app) {
   // Create a new appointment
   app.post("/api/appointments", function (req, res) {
     db.Appointments.create(req.body).then(function (dbAppointments) {
-      res.json(dbAppointments);
     });
   });
 
+  app.post("/api/providers", function (req, res) {
+    db.Providers.create(req.body).then(function (dbProviders) {
+
+      res.redirect();
+    });
+  });
   // Create a new client
   // app.post("/api/clients", function (req, res) {
   //   db.Clients.create(req.body).then(function (dbClients) {

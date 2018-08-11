@@ -14,7 +14,6 @@ module.exports = function (sequelize, DataTypes) {
     },
     brand_name: {
       type: DataTypes.STRING,
-      isAlphanumeric: true
     },
     firebase_id: {
       type: DataTypes.STRING
