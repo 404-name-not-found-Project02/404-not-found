@@ -193,7 +193,6 @@ function handleSignUp() {
 $(document).ready(function () {
     console.log(firebase.auth())
 });
-<<<<<<< Updated upstream
 
 function createUser(Post) {
 
@@ -201,5 +200,3 @@ function createUser(Post) {
 
     });
 }
-=======
->>>>>>> Stashed changes
