@@ -23,6 +23,7 @@ $("#signup-btn").on("click", function (event) {
     console.log("clicked the button");
 });
 
+
 function signUp() {
     firebase.auth().createUserWithEmailAndPassword(userName, password).catch(function (error) {
         // Handle Errors here.
@@ -38,6 +39,7 @@ function toggleSignIn() {
     if (firebase.auth().currentUser) {
         // [START signout]
         console.log("signed Out");
+        window.location = 'index.html';
         firebase.auth().signOut();
         // [END signout]
     } else {
@@ -52,9 +54,12 @@ function toggleSignIn() {
             alert('Please enter a password.');
             return;
         }
+
         // Sign in with email and pass.
         // [START authwithemail]
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+
+
             // Handle Errors here.
 
             var errorCode = error.code;
@@ -64,6 +69,11 @@ function toggleSignIn() {
                 alert('Wrong password.');
                 //put route here
             } else {
+                $("#loginMessage").text("Successful Login...Going To Your Dashboard!");
+                setTimeout(function () {
+                    window.location = 'dashboard.html';
+                }, 2000);
+                console.log("Logged in mate...")
                 alert(errorMessage);
             }
             console.log(error);
@@ -71,11 +81,7 @@ function toggleSignIn() {
             // [END_EXCLUDE]
         });
         // [END authwithemail]
-        $("#loginMessage").text("Successful Login...Going To Your Dashboard!");
-        setTimeout(function () {
-            window.location = 'dashboard.html';
-        }, 2000);
-        console.log("Logged in mate...")
+
     }
 }
 
@@ -123,7 +129,7 @@ function handleSignUp() {
     var password = $("#signup-password").val().trim();
     var firstName = $("#first-name").val().trim();
     var lastName = $("#last-name").val().trim();
-    var brand = $("#brand").val().trim();
+    var brandName = $("#brand-name").val().trim();
     if (email.length < 4) {
         alert('Please enter an email address.');
         return;
@@ -142,17 +148,53 @@ function handleSignUp() {
         if (errorCode == 'auth/weak-password') {
             alert('The password is too weak.');
         } else {
+            //put post ajax call here
             alert(errorMessage);
         }
         console.log(error);
 
-        //route to dashboard and create provider record.
+        console.log(provider);
+        console.log(firebase.auth().currentUser)
 
         // [END_EXCLUDE]
-    });
+    }).then(function () {
+        var provider = {};
+        provider.email = email;
+        provider.last_name = lastName;
+        provider.first_name = firstName;
+        provider.brand_name = brandName;
+        provider.firebase_id = firebase.auth().currentUser.uid;
+        console.log(provider);
+        // create object
+        // call function
+        createUser(provider);
+        // app.post("/api/providers", function (req, res) {
+        //     console.log(req.body);
+        //     db.Providers.create({
+        //         last_name: req.body,
+        //         first_name: req.body.body,
+        //         category: req.body.category
+        //     })
+        //         .then(function (dbPost) {
+        //             res.json(dbPost);
+        //         });
+        // });
+    })
     // [END createwithemail]
+    // $("#loginMessage").text("Successful Signup...Going To Your Dashboard!");
+    // setTimeout(function () {
+    //     window.location = 'dashboard.html';
+    // }, 2000);
+    // console.log("Logged in mate...")
 }
 
 $(document).ready(function () {
     console.log(firebase.auth())
 });
+
+function createUser(Post) {
+
+    $.post("/api/providers", Post, function () {
+
+    });
+}
