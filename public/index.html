@@ -75,7 +75,7 @@
     <div id="home">
         <div class="container font">
             <div class="row login">
-                <div class="col m6 s12 l6 offset-m6 offset-l3">
+                <div class="col m6 s12 l6 offset-s0 offset-m6 offset-l3">
                     <div class="card hoverable z-depth-1 scale-transition scale-out" id="login-card">
                         <div class="card-tabs">
                             <ul class="tabs tabs-fixed-width">
@@ -99,14 +99,15 @@
                                             </div>
                                             <div class="input-field col s12">
                                                 <i class="material-icons prefix">vpn_key</i>
-                                                <input id="pass" type="password">
+                                                <input id="password" type="password">
                                                 <label for="pass">Password</label>
                                             </div>
                                             <div class="center-align">
-                                                <a class="waves-effect waves-light btn">Login
+                                                <a class="waves-effect waves-light btn" id="login-btn">Login
                                                     <i class="material-icons right">send</i>
                                                 </a>
                                             </div>
+                                            <div class="center-align" id="loginMessage">Please Login.</div>
                                         </div>
                                     </form>
                                 </div>
@@ -153,11 +154,11 @@
                                                     <label for="password">Confirm Password</label>
                                                 </div>
                                             </div>
-                                                <div class="center-align">
-                                                    <a class="waves-effect waves-light btn">Sign-Up
-                                                        <i class="material-icons right">send</i>
-                                                    </a>
-                                                </div>
+                                            <div class="center-align">
+                                                <a class="waves-effect waves-light btn" id="signup-btn">Sign-Up
+                                                    <i class="material-icons right">send</i>
+                                                </a>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
