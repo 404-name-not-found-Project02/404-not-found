@@ -11,13 +11,13 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-$("#login").on("click", function (event) {
+$("#login-btn").on("click", function (event) {
     event.preventDefault();
     toggleSignIn();
     console.log("clicked the button");
 });
 
-$("#signup").on("click", function (event) {
+$("#signup-btn").on("click", function (event) {
     event.preventDefault();
     handleSignUp();
     console.log("clicked the button");
@@ -71,7 +71,11 @@ function toggleSignIn() {
             // [END_EXCLUDE]
         });
         // [END authwithemail]
-        console.log("wtf mate?")
+        $("#loginMessage").text("Successful Login...Going To Your Dashboard!");
+        setTimeout(function () {
+            window.location = 'dashboard.html';
+        }, 2000);
+        console.log("Logged in mate...")
     }
 }
 

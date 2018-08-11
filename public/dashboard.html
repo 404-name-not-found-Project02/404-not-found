@@ -11,12 +11,16 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="./styles/slideshow.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="./styles/styles.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <!-- for calendar -->
+    <link href='./lib/fullcalendar.min.css' rel='stylesheet' />
+    <link href='./lib/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    <script src='./lib/moment.min.js'></script>
+    <script src='./lib/jquery.min.js'></script>
+    <script src='./lib/fullcalendar.min.js'></script>
 
     <title>client&me</title>
 </head>
@@ -82,7 +86,7 @@
                         <img src="./images/female_profile.jpg" style="max-height: 350px; max-width: 350px;">
                     </div>
                     <div class="card-content">
-                        <p class="profileName center"style="font-family: 'Homemade Apple', cursive;">Katie Anderson</p>
+                        <p class="profileName center" style="font-family: 'Homemade Apple', cursive;">Katie Anderson</p>
                     </div>
                 </div>
             </div>
@@ -150,24 +154,27 @@
     <!-- calendar -->
     <div class="container">
         <div class="row calendar">
-            <div class="col s12 m6 l3">
+            <div class="col s12 m12 l12">
                 <div class="card center-align">
-                    <img src="./images/calendar.JPG">
+                    <div class="card-content">
+                        <div id='calendar'></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
-    <script src="js/index.js" type="text/javascript"></script>
+    <!-- <script src="js/index.js" type="text/javascript"></script>
     <script src="js/login.js" type="text/javascript"></script>
-    <script src="js/validate.js" type="text/javascript"></script>
+    <script src="js/validate.js" type="text/javascript"></script> -->
+    <script src="js/calendar.js" type="text/javascript"></script>
     <script>
 
         $(document).ready(function () {
             M.AutoInit();
-            $("#login-card").attr("class", "card hoverable z-depth-2 scale-transition scale-in")
         });
+
     </script>
     <script>initApp();</script>
 </body>
