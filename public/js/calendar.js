@@ -93,9 +93,18 @@ $(document).ready(function () {
 
 });
 
+<<<<<<< Updated upstream
 function createAppointment(Post) {
 
     $.post("/api/appointments", Post, function () {
 
     });
 }
+=======
+
+$("#upload-btn").on("click", function (e) {
+    console.log("clicked me")
+    e.preventDefault();
+    $("#upload:hidden").trigger("click");
+})
+>>>>>>> Stashed changes
