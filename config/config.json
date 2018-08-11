@@ -4,7 +4,7 @@
     "password": "root",
     "database": "clientandme",
     "host": "localhost",
-    "port": 3306,
+    "port": 3307,
     "dialect": "mysql"
   },
   "test": {
