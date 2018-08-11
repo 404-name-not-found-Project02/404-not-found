@@ -1,3 +1,5 @@
+//Table Code
+
 // appointment constructor
 function Appointment(client_name, start, end, note) {
     this.client_name = client_name;
