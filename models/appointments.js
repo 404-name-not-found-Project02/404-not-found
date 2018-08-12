@@ -1,7 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
   var Appointments = sequelize.define("Appointments", {
     //verify this is the correct one
-    title: DataTypes.STRING,
     start: DataTypes.DATE,
     end: DataTypes.DATE,
     client_name: DataTypes.STRING,

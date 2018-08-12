@@ -50,7 +50,7 @@ function renderTable() {
                             <td id='end" + id + "'>" + end + "</td> \
                             <td id='note" + id + "'>" + note + "</td> \
                             <td> \
-                                <a class='waves-effect waves-light btn edit-btn' id='" + id + "'>Edit</a> \
+                                <a href='#newAppt' class='waves-effect waves-light btn edit-btn modal-trigger' id='" + id + "'>Edit</a> \
                             </td> \
                         </tr>";
 
@@ -75,24 +75,24 @@ function renderTable() {
                                     <form class='col s12'> \
                                         <div class='row'> \
                                             <div class='input-field col s12'> \
-                                                <input id='date' type='text' class='validate'> \
-                                                <label for='date'>Date</label> \
+                                                <input id='client_name' type='text' class='validate'> \
+                                                <label for='client_name'>Client Name:</label> \
                                             </div> \
                                         </div> \
                                         <div class='row'> \
                                             <div class='input-field col s6'> \
-                                                <input id='time' type='text' class='validate'> \
-                                                <label for='time'>Time</label> \
+                                                <input id='start' type='text' class='validate'> \
+                                                <label for='start'>Start:</label> \
                                             </div> \
                                             <div class='input-field col s6'> \
-                                                <input id='client_name' type='text' class='validate'> \
-                                                <label for='client_name'>Client Name</label> \
+                                                <input id='end' type='text' class='validate'> \
+                                                <label for='end'>End:</label> \
                                             </div> \
                                         </div> \
                                         <div class='row'> \
                                             <div class='input-field col s12'> \
                                                 <input id='note' type='text' class='validate'> \
-                                                <label for='note'>Note (optional)</label> \
+                                                <label for='note'>Note (optional):</label> \
                                             </div> \
                                             <div class='modal-footer center-align'> \
                                                 <a href='#!' class='waves-effect waves-light btn modal-action modal-close' id='apptSubmit'>Submit \
@@ -106,6 +106,7 @@ function renderTable() {
                         </div>";
 
         $("#newAppt").html(string);
+        $(".modal").modal("open");
 
     });
 
