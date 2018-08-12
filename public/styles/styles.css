@@ -84,3 +84,26 @@ img{
 /* #upload{
   display: none;
 } */
+
+table.striped>tbody>tr:nth-child(odd) {
+  background-color: rgba(160, 160, 160, 0.646) !important;
+}
+.tableBody {
+  display:block;
+  height:400px;
+  overflow:auto;
+  }
+  .tableHead, .tableBody .tableRow {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+  }
+  /* .tableHead {
+  width: calc( 100% - 1em )
+  } */
+  .theTable {
+  width:100%;
+  }
+  .table-btn{
+    width: 75px;
+  }

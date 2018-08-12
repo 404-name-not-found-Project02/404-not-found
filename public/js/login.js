@@ -1,5 +1,5 @@
 // import { SSL_OP_CIPHER_SERVER_PREFERENCE } from "constants";
-var providerID = ""
+var provider_id;
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyAStUYCK4F4Tc14FfGOWDRVlgxHdvwxwpo",
@@ -43,6 +43,7 @@ function toggleSignIn() {
         console.log("signed Out");
         window.location = 'index.html';
         firebase.auth().signOut();
+        provider_id = "";
         // [END signout]
     } else {
         //sign-in
@@ -61,7 +62,6 @@ function toggleSignIn() {
         // [START authwithemail]
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
 
-
             // Handle Errors here.
 
             var errorCode = error.code;
@@ -71,10 +71,12 @@ function toggleSignIn() {
                 alert('Wrong password.');
                 //put route here
             } else {
+                provider_id = firebase.auth().currentUser.uid;
+                console.log(provider_id);
                 $("#loginMessage").text("Successful Login...Going To Your Dashboard!");
                 setTimeout(function () {
                     window.location = 'dashboard.html';
-                }, 2000);
+                }, 5000);
                 console.log("Logged in mate...")
                 alert(errorMessage);
             }
@@ -92,7 +94,7 @@ function initApp() {
     // [START authstatelistener]
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            console.log("User is signed in.")
+            console.log("User is signed in.");
             // var displayName = user.displayName;
             // var email = user.email;
             var emailVerified = true;
@@ -101,10 +103,12 @@ function initApp() {
             // var photoURL = user.photoURL;
             // var isAnonymous = user.isAnonymous;
             // var uid = user.uid;
-            // var providerData = user.providerData;
+            // var providerData = user.providerData; 
+            localStorage.setItem("provider_id", firebase.auth().currentUser.uid);
+            // provider_id = firebase.auth().currentUser.uid;
+            console.log(localStorage.getItem("provider_id"));
             window.location = 'dashboard.html';
             // [START_EXCLUDE]
-            providerID = "";
             if (!emailVerified) {
                 console.log(false)
             }

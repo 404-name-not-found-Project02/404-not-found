@@ -22,12 +22,12 @@ module.exports = function (sequelize, DataTypes) {
       freezeTableName: true
     }
   );
-  Providers.associate = function (models) {
-    // Associating Providers with Appointments
-    // When a Provider is deleted, also delete any associated Appointments - we may not want to do this
-    Providers.hasMany(models.Appointments, {
-      onDelete: "cascade"
-    });
-  };
+  // Providers.associate = function (models) {
+  //   // Associating Providers with Appointments
+  //   // When a Provider is deleted, also delete any associated Appointments - we may not want to do this
+  //   Providers.hasMany(models.Appointments, {
+  //     onDelete: "cascade"
+  //   });
+  // };
   return Providers;
 };

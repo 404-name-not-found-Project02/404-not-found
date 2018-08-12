@@ -22,7 +22,6 @@ var seedAppointments = function () {
     appointments.push(client2);
     appointments.push(client3);
     appointments.push(client4);
-
     // console appointments array
     // console.log(appointments);
 };
@@ -30,87 +29,46 @@ var seedAppointments = function () {
 
 // Build table function
 function renderTable() {
+    id = localStorage.getItem("provider_id")
+    // seedAppointments();
+    $.get("/api/appointments/table/" + id, function (data) {
+        console.log(data)
 
-    seedAppointments();
+        data.forEach(function (appointment) {
+            console.log(appointment);
+            if (appointment.note) {
+                var note = appointment.note
+            } else {
+                var note = "None"
+            }
+            var tr = $("<tr>");
+            tr.attr("id", appointment.id);
+            tr.addClass("tableRow")
+            var td = $("<td id='client_name" + appointment.id + "' class='tableData'>" + appointment.title + "</td>")
+            $(".tableBody").append(tr);
+            $("#" + appointment.id).append(td);
+            $("#" + appointment.id).append("<td id='start" + appointment.id + "'>" + moment(appointment.start).format("MM/DD/YYYY HH:mm") + "</td> ");
+            $("#" + appointment.id).append("<td id='end" + appointment.id + "'>" + moment(appointment.end).format("MM/DD/YYYY HH:mm") + "</td>");
+            $("#" + appointment.id).append("<td id='note" + appointment.id + "'>" + note + "</td>");
+            $("#" + appointment.id).append("<td class='table-btn'><a href='#newAppt' class='waves-effect waves-light btn edit-btn modal-trigger' id='" + appointment.id + "'>Edit</a></td> ");
 
-    for (i = 0; i < appointments.length; i++) {
-
-        var id = i;
-        var client_name = appointments[i].client_name
-        var start = appointments[i].start
-        var end = appointments[i].end
-        var note = appointments[i].note
-
-        // console log variables
-        // console.log(id + "|" + client_name + "|" + start + "|" + end + "|" + note);
-
-        var tableData = "<tr id='row" + id + "'> \
-                            <td id='client_name" + id + "'>" + client_name + "</td> \
-                            <td id='start" + id + "'>" + start + "</td> \
-                            <td id='end" + id + "'>" + end + "</td> \
-                            <td id='note" + id + "'>" + note + "</td> \
-                            <td> \
-                                <a href='#newAppt' class='waves-effect waves-light btn edit-btn modal-trigger' id='" + id + "'>Edit</a> \
-                            </td> \
-                        </tr>";
-
-        // console log tableData for each appointment
-        // console.log(tableData);
-
-        $(".tableBody").append(tableData);
-
-    };
-
-    // edit appointment function
-    $(".edit-btn").on("click", function (event) {
-        event.preventDefault();
-
-        console.log("click event worked")
-
-        id = $(this).attr("id");
-
-        // var string = "<div id='appt'> \
-        //                     <div id='apptType'> \
-        //                         <div class='row'> \
-        //                             <form class='col s12'> \
-        //                                 <div class='row'> \
-        //                                     <div class='input-field col s12'> \
-        //                                         <input id='client_name' type='text' class='validate'> \
-        //                                         <label for='client_name'>Client Name:</label> \
-        //                                     </div> \
-        //                                 </div> \
-        //                                 <div class='row'> \
-        //                                     <div class='input-field col s6'> \
-        //                                         <input id='start' type='text' class='validate'> \
-        //                                         <label for='start'>Start:</label> \
-        //                                     </div> \
-        //                                     <div class='input-field col s6'> \
-        //                                         <input id='end' type='text' class='validate'> \
-        //                                         <label for='end'>End:</label> \
-        //                                     </div> \
-        //                                 </div> \
-        //                                 <div class='row'> \
-        //                                     <div class='input-field col s12'> \
-        //                                         <input id='note' type='text' class='validate'> \
-        //                                         <label for='note'>Note (optional):</label> \
-        //                                     </div> \
-        //                                     <div class='modal-footer center-align'> \
-        //                                         <a href='#!' class='waves-effect waves-light btn modal-action modal-close' id='apptSubmit'>Submit \
-        //                                             <i class='material-icons right'>send</i> \
-        //                                         </a> \
-        //                                     </div> \
-        //                                 </div> \
-        //                             </form> \
-        //                         </div> \
-        //                     </div> \
-        //                 </div>";
-
-        // $("#newAppt").html(string);
-        $(".modal").modal("open");
-
+        });
     });
 
-};
+}
+
+// edit appointment function
+$(".edit-btn").on("click", function (event) {
+    event.preventDefault();
+
+    console.log("click event worked")
+
+    id = $(this).attr("id");
+
+    $(".modal").modal("open");
+
+});
+
 
 
 // document ready function

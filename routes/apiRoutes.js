@@ -2,6 +2,7 @@ var db = require("../models");
 var firebase = require('firebase');
 var googleStorage = require('@google-cloud/storage');
 var Multer = require('multer');
+var moment = require("moment");
 
 var storage = googleStorage({
   projectId: "name-not-found",
@@ -21,9 +22,20 @@ module.exports = function (app) {
   // Get all appointments
   app.get("/api/appointments/:id", function (req, res) {
     db.Appointments.findAll({
-      where: { ProviderId: req.params.id },
-      attributes: ['id', 'title', 'start', 'end'],
-      plain: true
+      where: { provider_id: req.params.id },
+      attributes: ['id', 'title', 'start', 'end']
+    }).then(function (dbAppointments) {
+      res.json(dbAppointments);
+    });
+  });
+
+  app.get("/api/appointments/table/:id", function (req, res) {
+    db.Appointments.findAll({
+      where: {
+        provider_id: req.params.id,
+        start: { $gte: moment().subtract(1, 'days').toDate() }
+      },
+      attributes: ['id', 'title', 'start', 'end']
     }).then(function (dbAppointments) {
       res.json(dbAppointments);
     });
@@ -50,6 +62,8 @@ module.exports = function (app) {
   // Create a new appointment
   app.post("/api/appointments", function (req, res) {
     db.Appointments.create(req.body).then(function (dbAppointments) {
+      console.log(req.body)
+      res.json(dbAppointments);
     });
   });
 

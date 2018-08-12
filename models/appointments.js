@@ -7,24 +7,23 @@ module.exports = function (sequelize, DataTypes) {
     note: {
       type: DataTypes.STRING,
       is: /^[a-z]+$/i,
-      validate: {
-        len: [1]
-      },
       allowNull: true,
     },
+    provider_id: DataTypes.STRING,
   },
     {
       freezeTableName: true
     }
   );
-  Appointments.associate = function (models) {
-    // We're saying that an appointment should belong to a provider
-    // An appointment can't be created without a provider due to the foreign key constraint
-    Appointments.belongsTo(models.Providers, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-  };
+  // Appointments.associate = function (models) {
+  //   // We're saying that an appointment should belong to a provider
+  //   // An appointment can't be created without a provider due to the foreign key constraint
+  //   Appointments.belongsTo(models.Providers, {
+  //     foreignKey: {
+  //       allowNull: false,
+  //       type: DataTypes.STRING
+  //     }
+  //   });
+  // };
   return Appointments;
 };
