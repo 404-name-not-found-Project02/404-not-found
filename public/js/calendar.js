@@ -93,10 +93,8 @@ $(document).ready(function () {
 
 });
 
-function createAppointment(Post) {
-
-    $.post("/api/appointments", Post, function () {
-
+function createAppointment(appointment) {
+    $.post("/api/appointments", appointment, function () {
     });
 }
 
@@ -105,3 +103,5 @@ $("#upload-btn").on("click", function (e) {
     e.preventDefault();
     $("#upload:hidden").trigger("click");
 })
+
+
