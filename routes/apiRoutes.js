@@ -42,8 +42,7 @@ module.exports = function (app) {
 
   app.post("/api/providers", function (req, res) {
     db.Providers.create(req.body).then(function (dbProviders) {
-
-      res.redirect();
+      // res.redirect();
     });
   });
   // Create a new client

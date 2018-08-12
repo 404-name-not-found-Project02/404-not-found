@@ -1,4 +1,4 @@
-import { SSL_OP_CIPHER_SERVER_PREFERENCE } from "constants";
+// import { SSL_OP_CIPHER_SERVER_PREFERENCE } from "constants";
 
 // Initialize Firebase
 var config = {
@@ -112,6 +112,10 @@ function initApp() {
         } else {
             // User is signed out.
             // [START_EXCLUDE]
+            // if (document.URL.includes("dashboard")) {
+            //     window.location = 'index.html';
+            // }
+
             // [END_EXCLUDE]
         }
         // [START_EXCLUDE silent]
@@ -119,11 +123,6 @@ function initApp() {
         // [END_EXCLUDE]
     });
     // [END authstatelistener]
-
-    // document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
-    // document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
-    // document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
-    // document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
 }
 
 function handleSignUp() {
@@ -170,33 +169,33 @@ function handleSignUp() {
         // create object
         // call function
         createUser(provider);
-        // app.post("/api/providers", function (req, res) {
-        //     console.log(req.body);
-        //     db.Providers.create({
-        //         last_name: req.body,
-        //         first_name: req.body.body,
-        //         category: req.body.category
-        //     })
-        //         .then(function (dbPost) {
-        //             res.json(dbPost);
-        //         });
-        // });
     })
     // [END createwithemail]
-    // $("#loginMessage").text("Successful Signup...Going To Your Dashboard!");
-    // setTimeout(function () {
-    //     window.location = 'dashboard.html';
-    // }, 2000);
-    // console.log("Logged in mate...")
 }
 
 $(document).ready(function () {
     console.log(firebase.auth())
 });
 
-function createUser(Post) {
+function createUser(provider) {
 
-    $.post("/api/providers", Post, function () {
+    $.post("/api/providers", provider, function () {
+
+    });
+}
+
+function checkIfSignedIn() {
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            console.log("User is signed in.")
+
+            if (!emailVerified) {
+                console.log(false)
+            }
+
+        } else {
+            window.location = 'index.html';
+        }
 
     });
 }
