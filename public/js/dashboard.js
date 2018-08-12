@@ -69,43 +69,43 @@ function renderTable() {
 
         id = $(this).attr("id");
 
-        var string = "<div id='appt'> \
-                            <div id='apptType'> \
-                                <div class='row'> \
-                                    <form class='col s12'> \
-                                        <div class='row'> \
-                                            <div class='input-field col s12'> \
-                                                <input id='client_name' type='text' class='validate'> \
-                                                <label for='client_name'>Client Name:</label> \
-                                            </div> \
-                                        </div> \
-                                        <div class='row'> \
-                                            <div class='input-field col s6'> \
-                                                <input id='start' type='text' class='validate'> \
-                                                <label for='start'>Start:</label> \
-                                            </div> \
-                                            <div class='input-field col s6'> \
-                                                <input id='end' type='text' class='validate'> \
-                                                <label for='end'>End:</label> \
-                                            </div> \
-                                        </div> \
-                                        <div class='row'> \
-                                            <div class='input-field col s12'> \
-                                                <input id='note' type='text' class='validate'> \
-                                                <label for='note'>Note (optional):</label> \
-                                            </div> \
-                                            <div class='modal-footer center-align'> \
-                                                <a href='#!' class='waves-effect waves-light btn modal-action modal-close' id='apptSubmit'>Submit \
-                                                    <i class='material-icons right'>send</i> \
-                                                </a> \
-                                            </div> \
-                                        </div> \
-                                    </form> \
-                                </div> \
-                            </div> \
-                        </div>";
+        // var string = "<div id='appt'> \
+        //                     <div id='apptType'> \
+        //                         <div class='row'> \
+        //                             <form class='col s12'> \
+        //                                 <div class='row'> \
+        //                                     <div class='input-field col s12'> \
+        //                                         <input id='client_name' type='text' class='validate'> \
+        //                                         <label for='client_name'>Client Name:</label> \
+        //                                     </div> \
+        //                                 </div> \
+        //                                 <div class='row'> \
+        //                                     <div class='input-field col s6'> \
+        //                                         <input id='start' type='text' class='validate'> \
+        //                                         <label for='start'>Start:</label> \
+        //                                     </div> \
+        //                                     <div class='input-field col s6'> \
+        //                                         <input id='end' type='text' class='validate'> \
+        //                                         <label for='end'>End:</label> \
+        //                                     </div> \
+        //                                 </div> \
+        //                                 <div class='row'> \
+        //                                     <div class='input-field col s12'> \
+        //                                         <input id='note' type='text' class='validate'> \
+        //                                         <label for='note'>Note (optional):</label> \
+        //                                     </div> \
+        //                                     <div class='modal-footer center-align'> \
+        //                                         <a href='#!' class='waves-effect waves-light btn modal-action modal-close' id='apptSubmit'>Submit \
+        //                                             <i class='material-icons right'>send</i> \
+        //                                         </a> \
+        //                                     </div> \
+        //                                 </div> \
+        //                             </form> \
+        //                         </div> \
+        //                     </div> \
+        //                 </div>";
 
-        $("#newAppt").html(string);
+        // $("#newAppt").html(string);
         $(".modal").modal("open");
 
     });

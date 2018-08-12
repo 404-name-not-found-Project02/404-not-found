@@ -3,7 +3,7 @@ module.exports = function (sequelize, DataTypes) {
     //verify this is the correct one
     start: DataTypes.DATE,
     end: DataTypes.DATE,
-    client_name: DataTypes.STRING,
+    title: DataTypes.STRING,
     note: {
       type: DataTypes.STRING,
       is: /^[a-z]+$/i,
@@ -11,9 +11,9 @@ module.exports = function (sequelize, DataTypes) {
         len: [1]
       },
       allowNull: true,
+    },
   },
-  },
-   {
+    {
       freezeTableName: true
     }
   );
