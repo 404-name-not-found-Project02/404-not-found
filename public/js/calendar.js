@@ -154,5 +154,6 @@ $("#apptSubmit").on("click", function (event) {
     appointment.provider_id = localStorage.getItem("provider_id");
     console.log(appointment);
     createAppointment(appointment);
+    window.location.replace("dashboard.html");
 })
 
