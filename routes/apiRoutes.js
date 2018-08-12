@@ -20,11 +20,24 @@ var multer = Multer({
 module.exports = function (app) {
   // Get all appointments
   app.get("/api/appointments/:id", function (req, res) {
-    db.Appointments.findAll({ where: { ProviderId: req.params.id } }).then(function (dbAppointments) {
+    db.Appointments.findAll({
+      where: { ProviderId: req.params.id },
+      attributes: ['id', 'title', 'start', 'end'],
+      plain: true
+    }).then(function (dbAppointments) {
       res.json(dbAppointments);
-      return (dbAppointments);
     });
   });
+  // app.get("/api/posts/:id", function (req, res) {
+  //   db.Post.findOne({
+  //     where: {
+  //       id: req.params.id
+  //     }
+  //   })
+  //     .then(function (dbPost) {
+  //       res.json(dbPost);
+  //     });
+  // });
   // Get all clients
   app.get("/api/clients", function (req, res) {
     db.Appointments.findAll({
@@ -55,7 +68,7 @@ module.exports = function (app) {
   // Delete an appointment by id
   app.delete("/api/appointments/:id", function (req, res) {
     db.Appointments.destroy({ where: { id: req.params.id } }).then(function (dbAppointments) {
-      res.json(dbAppointments);
+      // res.json(dbAppointments);
     });
   });
 

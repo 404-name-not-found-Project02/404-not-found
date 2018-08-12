@@ -103,3 +103,4 @@ $("#logout-btn").on("click", function (event) {
   toggleSignIn();
   console.log("clicked the button");
 });
+

@@ -1,5 +1,5 @@
 // import { SSL_OP_CIPHER_SERVER_PREFERENCE } from "constants";
-
+var providerID = ""
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyAStUYCK4F4Tc14FfGOWDRVlgxHdvwxwpo",
@@ -104,7 +104,7 @@ function initApp() {
             // var providerData = user.providerData;
             window.location = 'dashboard.html';
             // [START_EXCLUDE]
-
+            providerID = "";
             if (!emailVerified) {
                 console.log(false)
             }
@@ -178,9 +178,7 @@ $(document).ready(function () {
 });
 
 function createUser(provider) {
-
     $.post("/api/providers", provider, function () {
-
     });
 }
 

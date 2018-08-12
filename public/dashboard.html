@@ -13,13 +13,12 @@
     <link rel="stylesheet" href="./styles/styles.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <!-- for calendar -->
     <link href='./lib/fullcalendar.min.css' rel='stylesheet' />
     <link href='./lib/fullcalendar.print.min.css' rel='stylesheet' media='print' />
     <script src='./lib/moment.min.js'></script>
-    <script src='./lib/jquery.min.js'></script>
     <script src='./lib/fullcalendar.min.js'></script>
 
     <title>client&me</title>
@@ -164,7 +163,44 @@
     </div>
 
     <!-- edit appointment modal -->
-    <div class="modal" id="newAppt"></div>
+    <div class="modal modal-fixed-footer" id="newAppt">
+        <div id='appt'>
+            <div id='apptType'>
+                <div class='row'>
+                    <form class='col s12'>
+                        <div class='row'>
+                            <div class='input-field col s12'>
+                                <input id='client_name' type='text' class='validate'>
+                                <label for='client_name'>Client Name:</label>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='input-field col s6'>
+                                <input id='start' type='text' class='validate'>
+                                <label for='start'>Start:</label>
+                            </div>
+                            <div class='input-field col s6'>
+                                <input id='end' type='text' class='validate'>
+                                <label for='end'>End:</label>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='input-field col s12'>
+                                <input id='note' type='text' class='validate'>
+                                <label for='note'>Note (optional):</label>
+                            </div>
+                            <div class='modal-footer center-align'>
+                                <a href='#!' data-id="" class='waves-effect waves-light btn modal-action modal-close' id='apptSubmit'>Submit
+                                    <i class='material-icons right'>send</i>
+                                </a>
+                            </div>
+                            <br>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- calendar -->
