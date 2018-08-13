@@ -57,7 +57,7 @@ module.exports = function (app) {
       note: req.body.note
     },
       { where: { id: req.params.id } }).then((dbAppointments) => { res.json(dbAppointments); })
-  })
+  });
 
   app.post("/api/providers", function (req, res) {
     db.Providers.create(req.body).then(function (dbProviders) {
@@ -82,9 +82,9 @@ module.exports = function (app) {
   // });
 
   // Delete an appointment by id
-  app.delete("/api/appointments/:id", function (req, res) {
+  app.destroy("/api/appointments/delete/:id", function (req, res) {
     db.Appointments.destroy({ where: { id: req.params.id } }).then(function (dbAppointments) {
-      // res.json(dbAppointments);
+      res.json(dbAppointments);
     });
   });
 

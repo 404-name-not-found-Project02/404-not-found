@@ -16,13 +16,13 @@ var database = firebase.database();
 $("#login-btn").on("click", function (event) {
     event.preventDefault();
     toggleSignIn();
-    console.log("clicked the button");
+    //console.log("clicked the button");
 });
 
 $("#signup-btn").on("click", function (event) {
     event.preventDefault();
     handleSignUp();
-    console.log("clicked the button");
+    //console.log("clicked the button");
 });
 
 
@@ -40,7 +40,7 @@ function signUp() {
 function toggleSignIn() {
     if (firebase.auth().currentUser) {
         // [START signout]
-        console.log("signed Out");
+        //console.log("signed Out");
         window.location = 'index.html';
         firebase.auth().signOut();
         provider_id = "";
@@ -72,16 +72,16 @@ function toggleSignIn() {
                 //put route here
             } else {
                 provider_id = firebase.auth().currentUser.uid;
-                console.log(provider_id);
+                //console.log(provider_id);
                 $("#loginMessage").text("Successful Login...Going To Your Dashboard!");
 
                 setTimeout(function () {
                     window.location = 'dashboard.html';
                 }, 5000);
-                console.log("Logged in mate...")
+                //console.log("Logged in mate...")
                 alert(errorMessage);
             }
-            console.log(error);
+            //console.log(error);
 
             // [END_EXCLUDE]
         });
@@ -95,7 +95,7 @@ function initApp() {
     // [START authstatelistener]
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            console.log("User is signed in.");
+            //console.log("User is signed in.");
             // var displayName = user.displayName;
             // var email = user.email;
             var emailVerified = true;
@@ -106,11 +106,11 @@ function initApp() {
             // var uid = user.uid;
             // var providerData = user.providerData; 
             localStorage.setItem("provider_id", firebase.auth().currentUser.uid);
-            console.log(localStorage.getItem("provider_id"));
+            //console.log(localStorage.getItem("provider_id"));
             window.location = 'dashboard.html';
             // [START_EXCLUDE]
             if (!emailVerified) {
-                console.log("email not verfied")
+                //console.log("email not verfied")
             }
             // [END_EXCLUDE]
         } else {
@@ -156,10 +156,10 @@ function handleSignUp() {
             //put post ajax call here
             alert(errorMessage);
         }
-        console.log(error);
+        //console.log(error);
 
-        console.log(provider);
-        console.log(firebase.auth().currentUser)
+        //console.log(provider);
+        //console.log(firebase.auth().currentUser)
 
         // [END_EXCLUDE]
     }).then(function () {
@@ -169,7 +169,7 @@ function handleSignUp() {
         provider.first_name = firstName;
         provider.brand_name = brandName;
         provider.firebase_id = firebase.auth().currentUser.uid;
-        console.log(provider);
+        //console.log(provider);
         // create object
         // call function
         createUser(provider);
@@ -178,24 +178,24 @@ function handleSignUp() {
 }
 
 $(document).ready(function () {
-    console.log(firebase.auth())
+    //console.log(firebase.auth())
     getProvider(localStorage.getItem("provider_id"));
 });
 
 function createUser(provider) {
     $.post("/api/providers", provider, function () {
     }).then(function () {
-        console.log(provider)
+        //console.log(provider)
     });
 }
 
 function checkIfSignedIn() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            console.log("User is signed in.")
+            //console.log("User is signed in.")
 
             if (!emailVerified) {
-                console.log(false)
+                //console.log(false)
             }
 
         } else {
