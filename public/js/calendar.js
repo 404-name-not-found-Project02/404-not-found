@@ -5,7 +5,7 @@ $(document).ready(function () {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay'
+            right: 'month,agendaWeek,agendaDay,listWeek'
         },
         defaultDate: moment(),
         navLinks: true, //can click day/week names to navigate views
@@ -14,6 +14,13 @@ $(document).ready(function () {
         nowIndicator: true,
         timezone: "local",
         defaultView: "agendaWeek",
+        businessHours: {
+            // days of week. an array of zero-based day of week integers (0=Sunday)
+            dow: [0, 1, 2, 3, 4, 5, 6], // Monday - Thursday
+
+            start: '06:00', // a start time (10am in this example)
+            end: '19:00', // an end time (6pm in this example)
+        },
         //dayClick: function(date) {
         //alert('clicked ' + date.format());
         //},
@@ -28,25 +35,19 @@ $(document).ready(function () {
             $("#modal-btn").data("id", calEvent.id);
             $("#delete-btn").data("id", calEvent.id);
             $("#modal-btn").append("<i class='material-icons right'>send</i>");
-            $(".modal").modal("open");
+            $("#newAppt").modal("open");
             $("input").val("");
             $("label").addClass("active")
+            $("#start").data("time", start);
+            $("#end").data("time", end);
             $("#client_name").val(calEvent.title);
-            $("#start").val(moment(calEvent.start).format("MM-DD-YYYY HH:mm"));
-            $("#end").val(moment(calEvent.end).format("MM-DD-YYYY HH:mm"));
-            //console.log(calEvent);
-            //console.log(jsEvent);
-            //alert('Event: ' + calEvent.title);
-            //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-            //alert('View: ' + view.name);
-
-            //change the border color just for fun
-            //$(this).css('border-color', 'red');
-
+            $("#start").val(moment(calEvent.start).format("MMMM Do YYYY, h:mm a"));
+            $("#end").val(moment(calEvent.end).format("MMMM Do YYYY, h:mm a"));
+            $("#client_name").focus();
         },
         select: function (start, end, jsEvent, view) {
             $("#delete-btn").css("visibility", "hidden");
-            $(".modal").modal("open");
+            $("#newAppt").modal("open");
             $("#modal-btn").data("event", "create");
             $("#modal-btn").text("Submit");
             $("#modal-btn").append("<i class='material-icons right'>send</i>");
@@ -55,14 +56,15 @@ $(document).ready(function () {
             $("#start").data("time", start);
             $("#end").data("time", end);
             if (start.hasTime()) {
-                var displayStart = moment(start).format("MM-DD-YYYY HH:mm");
-                var displayEnd = moment(end).format("MM-DD-YYYY HH:mm");
+                var displayStart = moment(start).format("MMMM Do YYYY, h:mm a");
+                var displayEnd = moment(end).format("MMMM Do YYYY, h:mm a");
             } else {
-                var displayStart = moment(start).format("MM-DD-YYYY");
-                var displayEnd = moment(end).format("MM-DD-YYYY");
+                var displayStart = moment(start).format("MMMM Do YYYY");
+                var displayEnd = moment(end).format("MMMM Do YYYY");
             }
             $("#start").val(displayStart);
             $("#end").val(displayEnd);
+            $("#client_name").focus();
         },
         //dayClick: function (date, allDay, jsEvent, view) {
         //console.log("this is the day click function")
@@ -71,12 +73,44 @@ $(document).ready(function () {
         eventLimit: true,
         eventDrop: function (event, delta, revertFunc) {
 
-            console.log(moment(event.start._d).format("YYYY/MM/DD HH:mm:ss"));
+            //console.log(moment(event.start._d).format("YYYY/MM/DD HH:mm:ss"));
+            //moment.tz.setDefault("America/New_York");
+            //console.log(delta)
             var id = event.id;
             var appointment = {};
+            console.log(event);
+            console.log(event.start);
+            if (event.allDay) {
+                //need to fix this timezone issue... .add(1, "day") is a temp fix.
+                appointment.start = moment(event.start._d).add(1, "day").format("YYYY/MM/DD");
+                appointment.end = moment(event.start._d).add(1, "day").format("YYYY/MM/DD");
+            } else {
+                appointment.start = moment(event.start._d).format("YYYY/MM/DD HH:mm:ss");
+
+                if (event.end != null) {
+                    appointment.end = moment(event.end._d).format("YYYY/MM/DD HH:mm:ss");
+                } else {
+                    appointment.end = moment(event.start._d).add(30, 'm').format("YYYY/MM/DD HH:mm:ss");
+                }
+            }
+            console.log(appointment.start)
+            appointment.title = event.title;
+
+            if (!confirm("Are you sure about this change?")) {
+                revertFunc();
+            } else {
+                updateAppointment(id, appointment)
+            }
+
+        },
+        eventResize: function (event, jsEvent, ui, view) {
+            //console.log(moment(event.start._d).format("YYYY/MM/DD HH:mm:ss"));
+            var id = event.id;
+            var appointment = {};
+            console.log(event);
             if (event.allDay) {
                 appointment.start = moment(event.start._d).format("YYYY/MM/DD");
-                appointment.end = moment(event.end._d).format("YYYY/MM/DD");
+                appointment.end = moment(event.start._d).format("YYYY/MM/DD");
             } else {
                 appointment.start = moment(event.start._d).format("YYYY/MM/DD HH:mm:ss");
                 appointment.end = moment(event.end._d).format("YYYY/MM/DD HH:mm:ss");
@@ -88,8 +122,8 @@ $(document).ready(function () {
             } else {
                 updateAppointment(id, appointment)
             }
-
         },
+
         events: function (start, end, timezone, callback) {
             $.ajax({
                 method: "GET",
@@ -105,12 +139,22 @@ $(document).ready(function () {
                     //console.log(doc);
                     $(doc).each(function () {
                         //console.log($(this).attr('end'));
-                        events.push({
-                            id: $(this).attr('id'),
-                            title: $(this).attr('title'),
-                            start: $(this).attr('start'),
-                            end: $(this).attr('end'), //will be parsed
-                        });
+                        if ($(this).attr('start') === $(this).attr('end')) {
+                            events.push({
+                                id: $(this).attr('id'),
+                                title: $(this).attr('title'),
+                                start: $(this).attr('start'),
+                                allDay: true,
+                            });
+                        } else {
+                            events.push({
+                                id: $(this).attr('id'),
+                                title: $(this).attr('title'),
+                                start: $(this).attr('start'),
+                                end: $(this).attr('end'),
+                            });
+                        }
+                        //console.log(events)
                     });
                     callback(events);
                 }
@@ -212,11 +256,11 @@ $("#modal-btn").on("click", function (event) {
         case "update":
             //console.log(eventType)
             var id = $("#modal-btn").data("id");
-            var start = $("#start").val().trim();
-            var end = $("#end").val().trim();
+            var start = moment($("#start").val().trim(), "MMM Do YYYY HH:mm a").format();
+            var end = moment($("#end").val().trim(), "MMM Do YYYY HH:mm a").format();
             var appointment = {};
-            appointment.start = moment(start).format("YYYY/MM/DD HH:mm:ss");
-            appointment.end = moment(end).format("YYYY/MM/DD HH:mm:ss");
+            appointment.start = moment(start).format();
+            appointment.end = moment(end).format();
             appointment.title = $("#client_name").val().trim();
             appointment.note = $("#note").val().trim();
             //appointment.provider_id = localStorage.getItem("provider_id");
@@ -231,8 +275,10 @@ $("#modal-btn").on("click", function (event) {
             var start = $("#start").val().trim();
             var end = $("#end").val().trim();
             var appointment = {};
-            appointment.start = moment(start).format("YYYY/MM/DD HH:mm:ss");
-            appointment.end = moment(end).format("YYYY/MM/DD HH:mm:ss");
+            var start = moment($("#start").val().trim(), "MMM Do YYYY HH:mm a").format();
+            var end = moment($("#end").val().trim(), "MMM Do YYYY HH:mm a").format();
+            appointment.start = moment(start).format();
+            appointment.end = moment(end).format();
             appointment.title = $("#client_name").val().trim();
             appointment.note = $("#note").val().trim();
             appointment.provider_id = localStorage.getItem("provider_id");
