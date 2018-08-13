@@ -40,24 +40,6 @@ module.exports = function (app) {
       res.json(dbAppointments);
     });
   });
-  // app.get("/api/posts/:id", function (req, res) {
-  //   db.Post.findOne({
-  //     where: {
-  //       id: req.params.id
-  //     }
-  //   })
-  //     .then(function (dbPost) {
-  //       res.json(dbPost);
-  //     });
-  // });
-  // Get all clients
-  app.get("/api/clients", function (req, res) {
-    db.Appointments.findAll({
-      // where: {firebase_id} and just display the clients column
-    }).then(function (dbClients) {
-      res.json(dbClients);
-    });
-  });
 
   // Create a new appointment
   app.post("/api/appointments", function (req, res) {
@@ -67,9 +49,29 @@ module.exports = function (app) {
     });
   });
 
+  app.post("/api/appointments/:id", function (req, res) {
+    db.Appointments.update({
+      title: req.body.title,
+      start: req.body.start,
+      end: req.body.end,
+      note: req.body.note
+    },
+      { where: { id: req.params.id } }).then((dbAppointments) => { res.json(dbAppointments); })
+  })
+
   app.post("/api/providers", function (req, res) {
     db.Providers.create(req.body).then(function (dbProviders) {
       // res.redirect();
+      // res.json(dbAppointments);
+    });
+  });
+  app.get("/api/providers/:id", function (req, res) {
+    db.Providers.findAll({
+      where: {
+        firebase_id: req.params.id,
+      },
+    }).then(function (dbProviders) {
+      res.json(dbProviders);
     });
   });
   // Create a new client
@@ -86,12 +88,7 @@ module.exports = function (app) {
     });
   });
 
-  // Delete a client by id
-  // app.delete("/api/clients/:id", function (req, res) {
-  //   db.Clients.destroy({ where: { id: req.params.id } }).then(function (dbClients) {
-  //     res.json(dbClients);
-  //   });
-  // });
+
   app.post("/api/upload", multer.single("photo"), (req, res) => {
     console.log("Upload Image");
 

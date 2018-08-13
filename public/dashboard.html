@@ -85,7 +85,7 @@
                         <img src="./images/female_profile.jpg" style="max-height: 350px; max-width: 350px;">
                     </div>
                     <div class="card-content">
-                        <p class="profileName center" style="font-family: 'Homemade Apple', cursive;">Katie Anderson</p>
+                        <p id="providerName" class="profileName center" style="font-family: 'Homemade Apple', cursive;">Katie Anderson</p>
                     </div>
                     <div class="center-align">
                         <form action="/api/upload" enctype="multipart/form-data" method="POST">
@@ -102,7 +102,7 @@
             <!-- table row -->
             <div class="col s12 m12 l9">
                 <div class="card large appointments left-align">
-                    <table class="striped responsive-table theTable">
+                    <table class="striped theTable">
                         <thead class="tableHead">
                             <tr>
                                 <th>Client</th>
@@ -113,7 +113,9 @@
                             </tr>
                         </thead>
                         <tbody class="tableBody">
-
+                            <tr>
+                                <td>No Appointments.... :( Click anywhere on the calendar to enter a new appointment!!</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -124,10 +126,14 @@
 
     <!-- edit appointment modal -->
     <div class="modal modal-fixed-footer" id="newAppt">
+        <br>
         <div id='appt'>
             <div id='apptType'>
                 <div class='row'>
                     <form class='col s12'>
+                        <a href='#!' data-id="" class='waves-effect red waves-light btn-floating modal-action modal-close right' id='close-btn'>
+                            <i class="material-icons">close</i>
+                        </a>
                         <div class='row'>
                             <div class='input-field col s12'>
                                 <input id='client_name' type='text' class='validate'>
@@ -150,7 +156,8 @@
                                 <label for='note'>Note (optional):</label>
                             </div>
                             <div class='modal-footer center-align'>
-                                <a href='#!' data-id="" class='waves-effect waves-light btn modal-action modal-close' id='apptSubmit'>Submit
+                                <a href='#!' data-id="" class='waves-effect red waves-light btn modal-action modal-close left' id='delete-btn'>Delete</a>
+                                <a href='#!' data-id="" class='waves-effect waves-light btn modal-action modal-close' id='modal-btn'>Submit
                                     <i class='material-icons right'>send</i>
                                 </a>
                             </div>

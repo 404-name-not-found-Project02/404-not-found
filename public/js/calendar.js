@@ -20,7 +20,11 @@ $(document).ready(function () {
         //     alert('selected ' + startDate.format() + ' to ' + endDate.format());
         // },
         eventClick: function (calEvent, jsEvent, view) {
-            $("#apptSubmit").attr("data-id", "")
+            console.log(calEvent.id)
+            $("#modal-btn").data("event", "update");
+            $("#modal-btn").text("Update");
+            $("#modal-btn").attr("data-id", calEvent.id)
+            $("#modal-btn").append("<i class='material-icons right'>send</i>");
             $(".modal").modal("open");
             $("input").val("");
             $("label").addClass("active")
@@ -28,7 +32,8 @@ $(document).ready(function () {
             $("#start").val(moment(calEvent.start).format("MM-DD-YYYY HH:mm"));
             $("#end").val(moment(calEvent.end).format("MM-DD-YYYY HH:mm"));
             $("#apptSubmit").attr("data-id", calEvent.id)
-            console.log(calEvent)
+            console.log(calEvent);
+            console.log(jsEvent);
             // alert('Event: ' + calEvent.title);
             // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
             // alert('View: ' + view.name);
@@ -37,32 +42,25 @@ $(document).ready(function () {
             // $(this).css('border-color', 'red');
 
         },
-        select: function (start, end) {
+        select: function (start, end, jsEvent, view) {
+            console.log(view)
             $(".modal").modal("open");
+            $("#modal-btn").data("event", "create");
+            $("#modal-btn").text("Submit");
+            $("#modal-btn").append("<i class='material-icons right'>send</i>");
             $("input").val("");
             $("label").addClass("active");
             $("#start").data("time", start);
             $("#end").data("time", end);
-            var displayStart = moment(start).format("MM-DD-YYYY HH:mm");
-            var displayEnd = moment(end).format("MM-DD-YYYY HH:mm");
+            if (view.dateProfile.isRangeAllDay) {
+                var displayStart = moment(start).format("MM-DD-YYYY");
+                var displayEnd = moment(end).format("MM-DD-YYYY");
+            } else {
+                var displayStart = moment(start).format("MM-DD-YYYY HH:mm");
+                var displayEnd = moment(end).format("MM-DD-YYYY HH:mm");
+            }
             $("#start").val(displayStart);
             $("#end").val(displayEnd);
-
-            // if (title) {
-
-            // }
-            // var title = prompt('Client Name:');
-            // var eventData;
-            // if (title) {
-            //     eventData = {
-            //         title: title,
-            //         start: start,
-            //         end: end
-            //     };
-            //     $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-            //     console.log(eventData)
-            // }
-            // $('#calendar').fullCalendar('unselect');
         },
         editable: true,
         eventLimit: true, // allow "more" link when too many events
@@ -98,6 +96,10 @@ $(document).ready(function () {
 
 function createAppointment(appointment, callback) {
     $.post("/api/appointments", appointment, function () {
+    }).then(function () {
+        $("#calendar").fullCalendar("refetchEvents");
+        getAppointments(localStorage.getItem("provider_id"));
+        renderTable();
     })
 
 }
@@ -128,6 +130,17 @@ function getAppointments(id) {
     });
 };
 
+function getProvider(id) {
+    // id = 1;
+    $.get("/api/providers/" + id, function (data) {
+        if (data) {
+            console.log(data)
+            var displayName = data[0].first_name + " " + data[0].last_name
+            $("#providerName").text(displayName)
+        }
+    })
+};
+
 function getAppointmentsTable(id) {
     // id = 1;
     $.get("/api/appointments/table/" + id, function (apptsTbl) {
@@ -141,19 +154,65 @@ function getAppointmentsTable(id) {
     });
 }
 
-$("#apptSubmit").on("click", function (event) {
+function updateAppointment(id, appointment) {
+    $.post("/api/appointments/" + id, appointment, function () {
+    }).then(function () {
+        $("#calendar").fullCalendar("refetchEvents");
+        getAppointments(localStorage.getItem("provider_id"));
+        renderTable();
+    })
+}
+
+$("#modal-btn").on("click", function (event) {
     event.preventDefault();
-    console.log("clicked")
-    var start = $("#start").val().trim();
-    var end = $("#end").val().trim();
-    var appointment = {};
-    appointment.start = moment(start).format("YYYY/MM/DD HH:mm:ss");
-    appointment.end = moment(end).format("YYYY/MM/DD HH:mm:ss");
-    appointment.title = $("#client_name").val().trim();
-    appointment.note = $("#note").val().trim();
-    appointment.provider_id = localStorage.getItem("provider_id");
-    console.log(appointment);
-    createAppointment(appointment);
-    window.location.replace("dashboard.html");
+    var eventType = $("#modal-btn").data("event");
+    switch (eventType) {
+        case "update":
+            console.log(eventType)
+            var id = $("#modal-btn").data("id");
+            var start = $("#start").val().trim();
+            var end = $("#end").val().trim();
+            var appointment = {};
+            appointment.start = moment(start).format("YYYY/MM/DD HH:mm:ss");
+            appointment.end = moment(end).format("YYYY/MM/DD HH:mm:ss");
+            appointment.title = $("#client_name").val().trim();
+            appointment.note = $("#note").val().trim();
+            //appointment.provider_id = localStorage.getItem("provider_id");
+            // console.log(appointment);
+            console.log("updating the appointment")
+            console.log(id);
+            console.log(appointment);
+            updateAppointment(id, appointment);
+            break;
+        case "create":
+            console.log(eventType)
+            var start = $("#start").val().trim();
+            var end = $("#end").val().trim();
+            var appointment = {};
+            appointment.start = moment(start).format("YYYY/MM/DD HH:mm:ss");
+            appointment.end = moment(end).format("YYYY/MM/DD HH:mm:ss");
+            appointment.title = $("#client_name").val().trim();
+            appointment.note = $("#note").val().trim();
+            appointment.provider_id = localStorage.getItem("provider_id");
+            // console.log(appointment);
+            createAppointment(appointment);
+
+            break;
+        default:
+            break;
+    }
+    // console.log("clicked")
+    // var start = $("#start").val().trim();
+    // var end = $("#end").val().trim();
+    // var appointment = {};
+    // appointment.start = moment(start).format("YYYY/MM/DD HH:mm:ss");
+    // appointment.end = moment(end).format("YYYY/MM/DD HH:mm:ss");
+    // appointment.title = $("#client_name").val().trim();
+    // appointment.note = $("#note").val().trim();
+    // appointment.provider_id = localStorage.getItem("provider_id");
+    // // console.log(appointment);
+    // createAppointment(appointment);
+
+
 })
 
