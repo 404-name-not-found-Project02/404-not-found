@@ -13,6 +13,7 @@ $(document).ready(function () {
         selectHelper: true,
         nowIndicator: true,
         timezone: "local",
+        defaultView: "agendaWeek",
         // dayClick: function(date) {
         //     alert('clicked ' + date.format());
         //   },
@@ -43,7 +44,6 @@ $(document).ready(function () {
 
         },
         select: function (start, end, jsEvent, view) {
-            console.log(view)
             $(".modal").modal("open");
             $("#modal-btn").data("event", "create");
             $("#modal-btn").text("Submit");
@@ -52,18 +52,32 @@ $(document).ready(function () {
             $("label").addClass("active");
             $("#start").data("time", start);
             $("#end").data("time", end);
-            if (view.dateProfile.isRangeAllDay) {
-                var displayStart = moment(start).format("MM-DD-YYYY");
-                var displayEnd = moment(end).format("MM-DD-YYYY");
-            } else {
+            if (start.hasTime()) {
                 var displayStart = moment(start).format("MM-DD-YYYY HH:mm");
                 var displayEnd = moment(end).format("MM-DD-YYYY HH:mm");
+            } else {
+                var displayStart = moment(start).format("MM-DD-YYYY");
+                var displayEnd = moment(end).format("MM-DD-YYYY");
             }
             $("#start").val(displayStart);
             $("#end").val(displayEnd);
         },
+        // dayClick: function (date, allDay, jsEvent, view) {
+        //     console.log("this is the day click function")
+        // },
         editable: true,
-        eventLimit: true, // allow "more" link when too many events
+        eventLimit: true,
+        eventDrop: function (event, delta, revertFunc) {
+
+            console.log(event);
+            id = event.id
+            if (!confirm("Are you sure about this change?")) {
+                revertFunc();
+            } else {
+                //updateAppointment(id, appointment)
+            }
+
+        },
         events: function (start, end, timezone, callback) {
             $.ajax({
                 method: "GET",
@@ -90,6 +104,7 @@ $(document).ready(function () {
                 }
             });
         }
+
     });
 
 });
