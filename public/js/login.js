@@ -192,7 +192,7 @@ function createUser(provider) {
 function checkIfSignedIn() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            //console.log("User is signed in.")
+            console.log("User is signed in.")
 
             if (!emailVerified) {
                 //console.log(false)

@@ -82,7 +82,7 @@ module.exports = function (app) {
   // });
 
   // Delete an appointment by id
-  app.destroy("/api/appointments/delete/:id", function (req, res) {
+  app.delete("/api/appointments/delete/:id", function (req, res) {
     db.Appointments.destroy({ where: { id: req.params.id } }).then(function (dbAppointments) {
       res.json(dbAppointments);
     });
