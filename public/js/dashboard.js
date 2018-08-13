@@ -1,38 +1,13 @@
 //Table Code
 
-// appointment constructor
-function Appointment(client_name, start, end, note) {
-    this.client_name = client_name;
-    this.start = start;
-    this.end = end;
-    this.note = note;
-};
-
-// seed appointments
-var client1 = new Appointment("James Stewart", "2018-08-15 15:00:00", "2018-08-15 16:00:00", "Likes a bowl cut");
-var client2 = new Appointment("Brenna Smith", "2018-08-15 16:00:00", "2018-08-15 17:00:00", "BANGZZZZZ");
-var client3 = new Appointment("Cody McCoderson", "2018-08-15 17:00:00", "2018-08-15 18:00:00", "Shave it all off");
-var client4 = new Appointment("Cynthia Melvin", "2018-08-15 18:00:00", "2018-08-15 19:00:00", "She's super old");
-
-// appointments object
-var appointments = [];
-
-var seedAppointments = function () {
-    appointments.push(client1);
-    appointments.push(client2);
-    appointments.push(client3);
-    appointments.push(client4);
-    // console appointments array
-    // console.log(appointments);
-};
-
 
 // Build table function
 function renderTable() {
-    id = localStorage.getItem("provider_id")
+    $(".tableBody").empty();
+    id = localStorage.getItem("provider_id");
     // seedAppointments();
     $.get("/api/appointments/table/" + id, function (data) {
-        console.log(data)
+        console.log(data);
 
         data.forEach(function (appointment) {
             console.log(appointment);
@@ -50,24 +25,45 @@ function renderTable() {
             $("#" + appointment.id).append("<td id='start" + appointment.id + "'>" + moment(appointment.start).format("MM/DD/YYYY HH:mm") + "</td> ");
             $("#" + appointment.id).append("<td id='end" + appointment.id + "'>" + moment(appointment.end).format("MM/DD/YYYY HH:mm") + "</td>");
             $("#" + appointment.id).append("<td id='note" + appointment.id + "'>" + note + "</td>");
-            $("#" + appointment.id).append("<td class='table-btn'><a href='#newAppt' class='waves-effect waves-light btn edit-btn modal-trigger' id='" + appointment.id + "'>Edit</a></td> ");
+            $("#" + appointment.id).append("<td class='table-btn'><a href='#!' class='waves-effect waves-light btn' id='edit-btn' data-id='" + appointment.id + "'>Edit</a></td> ");
 
         });
     });
 
 }
-
+//modal-trigger
 // edit appointment function
-$(".edit-btn").on("click", function (event) {
+function editAppt(event) {
     event.preventDefault();
-
-    console.log("click event worked")
-
-    id = $(this).attr("id");
-
     $(".modal").modal("open");
+    console.log("click event worked");
+    var id = $(this).data("id");
+    console.log(id)
+    var start = $("#start" + id).text();
+    var end = $("#end" + id).text();
+    var title = $("#client_name" + id).text();
+    var note = $("#note" + id).text();
+    $("input").val("");
+    $("label").addClass("active");
+    $("#start").data("time", start);
+    $("#end").data("time", end);
+    $("#client_name").val(title);
+    $("#note").val(note);
+    var displayStart = moment(start).format("MM-DD-YYYY HH:mm");
+    var displayEnd = moment(end).format("MM-DD-YYYY HH:mm");
+    $("#start").val(displayStart);
+    $("#end").val(displayEnd);
+    $("#modal-btn").data("event", "update");
+    $("#modal-btn").text("Update");
+    $("#modal-btn").append("<i class='material-icons right'>send</i>");
 
-});
+
+};
+$(document).on("click", "#edit-btn", editAppt);
+$("#delete-btn").on("click", function (event) {
+    event.preventDefault();
+    console.log("Delete button pressed");
+})
 
 
 

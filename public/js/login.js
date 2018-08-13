@@ -74,6 +74,7 @@ function toggleSignIn() {
                 provider_id = firebase.auth().currentUser.uid;
                 console.log(provider_id);
                 $("#loginMessage").text("Successful Login...Going To Your Dashboard!");
+
                 setTimeout(function () {
                     window.location = 'dashboard.html';
                 }, 5000);
@@ -105,12 +106,11 @@ function initApp() {
             // var uid = user.uid;
             // var providerData = user.providerData; 
             localStorage.setItem("provider_id", firebase.auth().currentUser.uid);
-            // provider_id = firebase.auth().currentUser.uid;
             console.log(localStorage.getItem("provider_id"));
             window.location = 'dashboard.html';
             // [START_EXCLUDE]
             if (!emailVerified) {
-                console.log(false)
+                console.log("email not verfied")
             }
             // [END_EXCLUDE]
         } else {
@@ -179,10 +179,13 @@ function handleSignUp() {
 
 $(document).ready(function () {
     console.log(firebase.auth())
+    getProvider(localStorage.getItem("provider_id"));
 });
 
 function createUser(provider) {
     $.post("/api/providers", provider, function () {
+    }).then(function () {
+        console.log(provider)
     });
 }
 
