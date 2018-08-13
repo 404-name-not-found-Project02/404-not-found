@@ -20,9 +20,10 @@ $(document).ready(function () {
         //     alert('selected ' + startDate.format() + ' to ' + endDate.format());
         // },
         eventClick: function (calEvent, jsEvent, view) {
-            $("#apptSubmit").attr("data-id", "")
+            console.log(calEvent.id)
             $("#modal-btn").data("event", "update");
             $("#modal-btn").text("Update");
+            $("#modal-btn").attr("data-id", calEvent.id)
             $("#modal-btn").append("<i class='material-icons right'>send</i>");
             $(".modal").modal("open");
             $("input").val("");
@@ -42,7 +43,7 @@ $(document).ready(function () {
 
         },
         select: function (start, end, jsEvent, view) {
-            console.log(view.dateProfile.isRangeAllDay)
+            console.log(view)
             $(".modal").modal("open");
             $("#modal-btn").data("event", "create");
             $("#modal-btn").text("Submit");
@@ -153,12 +154,35 @@ function getAppointmentsTable(id) {
     });
 }
 
+function updateAppointment(id, appointment) {
+    $.post("/api/appointments/" + id, appointment, function () {
+    }).then(function () {
+        $("#calendar").fullCalendar("refetchEvents");
+        getAppointments(localStorage.getItem("provider_id"));
+        renderTable();
+    })
+}
+
 $("#modal-btn").on("click", function (event) {
     event.preventDefault();
     var eventType = $("#modal-btn").data("event");
     switch (eventType) {
         case "update":
             console.log(eventType)
+            var id = $("#modal-btn").data("id");
+            var start = $("#start").val().trim();
+            var end = $("#end").val().trim();
+            var appointment = {};
+            appointment.start = moment(start).format("YYYY/MM/DD HH:mm:ss");
+            appointment.end = moment(end).format("YYYY/MM/DD HH:mm:ss");
+            appointment.title = $("#client_name").val().trim();
+            appointment.note = $("#note").val().trim();
+            //appointment.provider_id = localStorage.getItem("provider_id");
+            // console.log(appointment);
+            console.log("updating the appointment")
+            console.log(id);
+            console.log(appointment);
+            updateAppointment(id, appointment);
             break;
         case "create":
             console.log(eventType)

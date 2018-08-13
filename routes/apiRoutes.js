@@ -49,6 +49,16 @@ module.exports = function (app) {
     });
   });
 
+  app.post("/api/appointments/:id", function (req, res) {
+    db.Appointments.update({
+      title: req.body.title,
+      start: req.body.start,
+      end: req.body.end,
+      note: req.body.note
+    },
+      { where: { id: req.params.id } }).then((dbAppointments) => { res.json(dbAppointments); })
+  })
+
   app.post("/api/providers", function (req, res) {
     db.Providers.create(req.body).then(function (dbProviders) {
       // res.redirect();
@@ -77,6 +87,7 @@ module.exports = function (app) {
       // res.json(dbAppointments);
     });
   });
+
 
   app.post("/api/upload", multer.single("photo"), (req, res) => {
     console.log("Upload Image");
