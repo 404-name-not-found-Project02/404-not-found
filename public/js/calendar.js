@@ -46,6 +46,9 @@ $(document).ready(function () {
             $("#client_name").focus();
         },
         select: function (start, end, jsEvent, view) {
+            //Intl.DateTimeFormat().resolvedOptions().timeZone
+            console.log(start);
+            console.log(start._d.unix());
             $("#delete-btn").css("visibility", "hidden");
             $("#newAppt").modal("open");
             $("#modal-btn").data("event", "create");
@@ -113,7 +116,7 @@ $(document).ready(function () {
                 appointment.end = moment(event.start._d).format("YYYY/MM/DD");
             } else {
                 appointment.start = moment(event.start._d).add(6, "hours").format("YYYY/MM/DD HH:mm:ss");
-                appointment.end = moment(event.end._d).add(6, "hours").format("YYYY/MM/DD HH:mm:ss");
+                appointment.end = moment(event.end._d).format("YYYY/MM/DD HH:mm:ss");
             }
             appointment.title = event.title;
 
@@ -145,6 +148,7 @@ $(document).ready(function () {
                                 title: $(this).attr('title'),
                                 start: $(this).attr('start'),
                                 allDay: true,
+                                timezone: timezone,
                             });
                         } else {
                             events.push({
