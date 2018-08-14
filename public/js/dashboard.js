@@ -34,8 +34,8 @@ function renderTable() {
             $(".btn-floating").removeClass("pulse")
         } else {
             $(".tableBody").empty();
-            $(".tableBody").append("<tr><td>No Appointments.... :( Click anywhere on the calendar or the " + " button to get started!!</td></tr>")
             $(".btn-floating").addClass("pulse")
+            $(".tableBody").append("<tr><td>You currently do not have any appointments scheduled. Click the + button to add an appointment.</td></tr>")
         }
     });
 
