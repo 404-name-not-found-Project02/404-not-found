@@ -24,8 +24,8 @@ function renderTable() {
                 var td = $("<td id='client_name" + appointment.id + "' class='tableData'>" + appointment.title + "</td>")
                 $(".tableBody").append(tr);
                 $("#" + appointment.id).append(td);
-                $("#" + appointment.id).append("<td id='start" + appointment.id + "'>" + moment(appointment.start).format("MM/DD/YYYY HH:mm") + "</td> ");
-                $("#" + appointment.id).append("<td id='end" + appointment.id + "'>" + moment(appointment.end).format("MM/DD/YYYY HH:mm") + "</td>");
+                $("#" + appointment.id).append("<td id='start" + appointment.id + "'>" + moment(appointment.start).local().format("MM/DD/YYYY HH:mm") + "</td> ");
+                $("#" + appointment.id).append("<td id='end" + appointment.id + "'>" + moment(appointment.end).local().format("MM/DD/YYYY HH:mm") + "</td>");
                 $("#" + appointment.id).append("<td id='note" + appointment.id + "'>" + note + "</td>");
                 $("#" + appointment.id).append("<td class='table-btn'><a href='#!' class='waves-effect waves-light btn' id='edit-btn' data-id='" + appointment.id + "'>Edit</a></td> ");
 
@@ -52,8 +52,8 @@ function editAppt(event) {
     var note = $("#note" + id).text();
     $("input").val("");
     $("label").addClass("active");
-    $("#start").data("time", start);
-    $("#end").data("time", end);
+    $("#start").data("time", moment(start).utc().format("YYYY/MM/DD HH:mm:ss"));
+    $("#end").data("time", moment(end).utc().format("YYYY/MM/DD HH:mm:ss"));
     $("#client_name").val(title);
     $("#note").val(note);
     var displayStart = moment(start).format("MMMM Do YYYY, h:mm a");
@@ -63,6 +63,7 @@ function editAppt(event) {
     $("#delete-btn").data("id", id);
     $("#delete-btn").css("visibility", "visible");
     $("#modal-btn").data("event", "update");
+    $("#modal-btn").data("id", id);
     $("#modal-btn").text("Update");
     $("#modal-btn").append("<i class='material-icons right'>send</i>");
     $("#client_name").focus();

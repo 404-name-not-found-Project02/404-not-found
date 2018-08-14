@@ -31,6 +31,8 @@ $(document).ready(function () {
         eventClick: function (calEvent, jsEvent, view) {
             // console.log($.fullCalendar.moment(calEvent.start._d).utc());
             calendarObject = calEvent;
+            var startUTC = moment(calEvent.start._i).utc().format("YYYY/MM/DD HH:mm:ss");
+            var endUTC = moment(calEvent.end._i).utc().format("YYYY/MM/DD HH:mm:ss");
             $("#modal-btn").data("event", "update");
             $("#modal-btn").text("Update");
             $("#delete-btn").css("visibility", "visible");
@@ -40,18 +42,18 @@ $(document).ready(function () {
             $("#newAppt").modal("open");
             $("input").val("");
             $("label").addClass("active")
-            $("#start").data("time", calEvent.start._i);
-            $("#end").data("time", calEvent.end._i);
+            $("#start").data("time", startUTC);
+            $("#end").data("time", endUTC);
             $("#client_name").val(calEvent.title);
-            $("#start").val(moment(calEvent.start).format("MMMM Do YYYY, h:mm a"));
+            $("#start").val(moment(calEvent.start).local().format("MMMM Do YYYY, h:mm a"));
             // moment($("#start").data("time")).local().format("YYYY-MM-DD HH:mm:ss")
-            $("#end").val(moment(calEvent.end).format("MMMM Do YYYY, h:mm a"));
+            $("#end").val(moment(calEvent.end).local().format("MMMM Do YYYY, h:mm a"));
             $("#client_name").focus();
         },
         select: function (start, end, jsEvent, view) {
             //Intl.DateTimeFormat().resolvedOptions().timeZone
-            console.log(moment(start).utc());
-            console.log(start);
+            // console.log(moment(start).utc());
+            // console.log(start);
             $("#delete-btn").css("visibility", "hidden");
             $("#newAppt").modal("open");
             $("#modal-btn").data("event", "create");
@@ -245,6 +247,7 @@ function updateAppointment(id, appointment) {
         getAppointments(localStorage.getItem("provider_id"));
         $("#calendar").fullCalendar("refetchEvents");
         renderTable();
+        console.log("appointment updated")
     })
 };
 function deleteAppointment(id) {
@@ -267,20 +270,20 @@ $("#modal-btn").on("click", function (event) {
     var eventType = $("#modal-btn").data("event");
     switch (eventType) {
         case "update":
-            console.log($("#end").data("end"))
+            // console.log($("#end").data("time"))
             var id = $("#modal-btn").data("id");
-            var start = moment($("#start").val().trim(), "MMM Do YYYY HH:mm a").format();
-            var end = moment($("#end").val().trim(), "MMM Do YYYY HH:mm a").format();
+            console.log(id)
+            var start = moment(moment($("#start").val().trim(), "MMM Do YYYY HH:mm a").format("YYYY/MM/DD HH:mm:ss")).utc().format();
+            var end = moment(moment($("#end").val().trim(), "MMM Do YYYY HH:mm a").format("YYYY/MM/DD HH:mm:ss")).utc().format();
             var appointment = {};
-            appointment.start = moment(start).format();
-            appointment.end = moment(end).format();
+            appointment.start = start;
+            appointment.end = end;
             appointment.title = $("#client_name").val().trim();
             appointment.note = $("#note").val().trim();
+            console.log(appointment);
             //appointment.provider_id = localStorage.getItem("provider_id");
             ////console.log(appointment);
-            //console.log("updating the appointment")
-            //console.log(id);
-            //console.log(appointment);
+            console.log("updating the appointment")
             updateAppointment(id, appointment);
             break;
         case "create":
