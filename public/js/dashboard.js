@@ -34,6 +34,7 @@ function renderTable() {
             $(".btn-floating").removeClass("pulse")
         } else {
             $(".tableBody").empty();
+            $(".btn-floating").addClass("pulse")
             $(".tableBody").append("<tr><td>You currently do not have any appointments scheduled. Click the + button to add an appointment.</td></tr>")
         }
     });
@@ -55,8 +56,8 @@ function editAppt(event) {
     $("#end").data("time", end);
     $("#client_name").val(title);
     $("#note").val(note);
-    var displayStart = moment(start).format("MM-DD-YYYY HH:mm");
-    var displayEnd = moment(end).format("MM-DD-YYYY HH:mm");
+    var displayStart = moment(start).format("MMMM Do YYYY, h:mm a");
+    var displayEnd = moment(end).format("MMMM Do YYYY, h:mm a");
     $("#start").val(displayStart);
     $("#end").val(displayEnd);
     $("#delete-btn").data("id", id);
