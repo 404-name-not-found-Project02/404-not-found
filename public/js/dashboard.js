@@ -72,6 +72,21 @@ function editAppt(event) {
 
 $(document).on("click", "#edit-btn", editAppt);
 
+var noteUpdate = document.getElementById("note");
+noteUpdate.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("modal-btn").click();
+    }
+});
+var endUpdate = document.getElementById("end");
+endUpdate.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("modal-btn").click();
+    }
+});
+
 $("#delete-btn").on("click", function (event) {
     event.preventDefault();
     var id = $(this).data("id");

@@ -25,6 +25,13 @@ $("#signup-btn").on("click", function (event) {
     //console.log("clicked the button");
 });
 
+var login = document.getElementById("password");
+login.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("login-btn").click();
+    }
+});
 
 function signUp() {
     firebase.auth().createUserWithEmailAndPassword(userName, password).catch(function (error) {
