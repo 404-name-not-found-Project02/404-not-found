@@ -156,7 +156,7 @@ $(document).ready(function () {
         event.preventDefault();
         $("#imageForm").submit();
     });
-
+    getProvider(localStorage.getItem("provider_id"));
 });
 
 
