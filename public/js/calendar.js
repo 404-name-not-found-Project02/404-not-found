@@ -214,7 +214,7 @@ function getProvider(id) {
     //id = 1;
     $.get("/api/providers/" + id, function (data) {
         if (data) {
-            //console.log(data);
+            console.log(data);
             var displayName = data[0].first_name + " " + data[0].last_name;
             $("#providerName").text(displayName);
             $("#brand-text").text(data[0].brand_name);

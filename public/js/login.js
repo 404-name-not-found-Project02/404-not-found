@@ -86,9 +86,9 @@ function toggleSignIn() {
                 provider_id = firebase.auth().currentUser.uid;
                 //console.log(provider_id);
                 $("#loginMessage").text("Successful Login...Going To Your Dashboard!");
-
                 setTimeout(function () {
                     window.location = 'dashboard.html';
+                    getProvider(localStorage.getItem("provider_id"));
                 }, 5000);
             }
             // [END_EXCLUDE]
