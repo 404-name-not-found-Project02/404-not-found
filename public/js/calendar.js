@@ -28,7 +28,7 @@ $(document).ready(function () {
         //alert('selected ' + startDate.format() + ' to ' + endDate.format());
         //},
         eventClick: function (calEvent, jsEvent, view) {
-            //console.log(calEvent.id)
+            // console.log($.fullCalendar.moment(calEvent.start._d).utc());
             $("#modal-btn").data("event", "update");
             $("#modal-btn").text("Update");
             $("#delete-btn").css("visibility", "visible");
@@ -38,8 +38,8 @@ $(document).ready(function () {
             $("#newAppt").modal("open");
             $("input").val("");
             $("label").addClass("active")
-            $("#start").data("time", start);
-            $("#end").data("time", end);
+            $("#start").data("time", calEvent.start);
+            $("#end").data("time", calEvent.end);
             $("#client_name").val(calEvent.title);
             $("#start").val(moment(calEvent.start).format("MMMM Do YYYY, h:mm a"));
             $("#end").val(moment(calEvent.end).format("MMMM Do YYYY, h:mm a"));
@@ -47,8 +47,8 @@ $(document).ready(function () {
         },
         select: function (start, end, jsEvent, view) {
             //Intl.DateTimeFormat().resolvedOptions().timeZone
-            console.log(start);
-            console.log(start._d.unix());
+            console.log(moment(start).utc());
+            // console.log(start._d.unix());
             $("#delete-btn").css("visibility", "hidden");
             $("#newAppt").modal("open");
             $("#modal-btn").data("event", "create");
@@ -88,12 +88,12 @@ $(document).ready(function () {
                 appointment.start = moment(event.start._d).add(1, "day").format("YYYY/MM/DD");
                 appointment.end = moment(event.start._d).add(1, "day").format("YYYY/MM/DD");
             } else {
-                appointment.start = moment(event.start._d).format("YYYY/MM/DD HH:mm:ss");
+                appointment.start = moment(event.start._d).add(6, "hours").format("YYYY/MM/DD HH:mm");
 
                 if (event.end != null) {
-                    appointment.end = moment(event.end._d).format("YYYY/MM/DD HH:mm:ss");
+                    appointment.end = moment(event.end._d).add(6, "hours").format("YYYY/MM/DD HH:mm");
                 } else {
-                    appointment.end = moment(event.start._d).add(30, 'm').format("YYYY/MM/DD HH:mm:ss");
+                    appointment.end = moment(event.start._d).add(30, 'm').format("YYYY/MM/DD HH:mm");
                 }
             }
             console.log(appointment.start)
@@ -116,7 +116,7 @@ $(document).ready(function () {
                 appointment.end = moment(event.start._d).format("YYYY/MM/DD");
             } else {
                 appointment.start = moment(event.start._d).add(6, "hours").format("YYYY/MM/DD HH:mm:ss");
-                appointment.end = moment(event.end._d).format("YYYY/MM/DD HH:mm:ss");
+                appointment.end = moment(event.end._d).add(6, "hours").format("YYYY/MM/DD HH:mm:ss");
             }
             appointment.title = event.title;
 
