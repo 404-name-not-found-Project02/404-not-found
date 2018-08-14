@@ -71,6 +71,11 @@ function toggleSignIn() {
                 alert('Wrong password.');
                 //put route here
             } else {
+                //console.log("Logged in mate...")
+                alert(errorMessage);
+            }
+            //console.log(error);
+            if (!error) {
                 provider_id = firebase.auth().currentUser.uid;
                 //console.log(provider_id);
                 $("#loginMessage").text("Successful Login...Going To Your Dashboard!");
@@ -78,11 +83,7 @@ function toggleSignIn() {
                 setTimeout(function () {
                     window.location = 'dashboard.html';
                 }, 5000);
-                //console.log("Logged in mate...")
-                alert(errorMessage);
             }
-            //console.log(error);
-
             // [END_EXCLUDE]
         });
         // [END authwithemail]
