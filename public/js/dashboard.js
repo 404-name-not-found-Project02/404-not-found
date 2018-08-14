@@ -32,6 +32,9 @@ function renderTable() {
             });
 
             $(".btn-floating").removeClass("pulse")
+        } else {
+            $(".tableBody").empty();
+            $(".tableBody").append("<tr><td>No Appointments.... :( Click anywhere on the calendar or the " + " button to get started!!</td></tr>")
         }
     });
 
