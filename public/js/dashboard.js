@@ -35,6 +35,7 @@ function renderTable() {
         } else {
             $(".tableBody").empty();
             $(".tableBody").append("<tr><td>No Appointments.... :( Click anywhere on the calendar or the " + " button to get started!!</td></tr>")
+            $(".btn-floating").addClass("pulse")
         }
     });
 
@@ -55,8 +56,8 @@ function editAppt(event) {
     $("#end").data("time", end);
     $("#client_name").val(title);
     $("#note").val(note);
-    var displayStart = moment(start).format("MM-DD-YYYY HH:mm");
-    var displayEnd = moment(end).format("MM-DD-YYYY HH:mm");
+    var displayStart = moment(start).format("MMMM Do YYYY, h:mm a");
+    var displayEnd = moment(end).format("MMMM Do YYYY, h:mm a");
     $("#start").val(displayStart);
     $("#end").val(displayEnd);
     $("#delete-btn").data("id", id);
