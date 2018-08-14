@@ -90,7 +90,7 @@ $(document).ready(function () {
             appointment.title = event.title;
             if (event.allDay) {
                 //need to fix this timezone issue... .add(1, "day") is a temp fix.
-                console.log(event.allDay)
+                // console.log(event.allDay)
                 appointment.start = moment(event.start._i).utc().format("YYYY/MM/DD");
                 appointment.end = moment(event.end._i).utc().format("YYYY/MM/DD");
             } else {
@@ -102,9 +102,9 @@ $(document).ready(function () {
                     appointment.end = moment(event.end._i).add(30, "m").utc().format("YYYY/MM/DD HH:mm:ss");
                 }
             }
-            console.log(appointment)
-            console.log(appointment.start)
-            console.log(appointment.end)
+            // console.log(appointment)
+            // console.log(appointment.start)
+            // console.log(appointment.end)
 
             if (!confirm("Are you sure about this change?")) {
                 revertFunc();
@@ -127,9 +127,9 @@ $(document).ready(function () {
                 appointment.end = moment(event.end._i).utc().format("YYYY/MM/DD HH:mm:ss");
             }
             appointment.title = event.title;
-            console.log(appointment)
-            console.log(appointment.start)
-            console.log(appointment.end)
+            // console.log(appointment)
+            // console.log(appointment.start)
+            // console.log(appointment.end)
 
             if (!confirm("Are you sure about this change?")) {
                 revertFunc();
@@ -247,7 +247,7 @@ function updateAppointment(id, appointment) {
         getAppointments(localStorage.getItem("provider_id"));
         $("#calendar").fullCalendar("refetchEvents");
         renderTable();
-        console.log("appointment updated")
+        // console.log("appointment updated")
     })
 };
 function deleteAppointment(id) {
@@ -272,7 +272,7 @@ $("#modal-btn").on("click", function (event) {
         case "update":
             // console.log($("#end").data("time"))
             var id = $("#modal-btn").data("id");
-            console.log(id)
+            // console.log(id)
             var start = moment(moment($("#start").val().trim(), "MMM Do YYYY HH:mm a").format("YYYY/MM/DD HH:mm:ss")).utc().format();
             var end = moment(moment($("#end").val().trim(), "MMM Do YYYY HH:mm a").format("YYYY/MM/DD HH:mm:ss")).utc().format();
             var appointment = {};
@@ -280,10 +280,10 @@ $("#modal-btn").on("click", function (event) {
             appointment.end = end;
             appointment.title = $("#client_name").val().trim();
             appointment.note = $("#note").val().trim();
-            console.log(appointment);
+            // console.log(appointment);
             //appointment.provider_id = localStorage.getItem("provider_id");
             ////console.log(appointment);
-            console.log("updating the appointment")
+            // console.log("updating the appointment")
             updateAppointment(id, appointment);
             break;
         case "create":

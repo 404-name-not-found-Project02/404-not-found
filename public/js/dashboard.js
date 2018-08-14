@@ -7,7 +7,7 @@ function renderTable() {
     id = localStorage.getItem("provider_id");
     // seedAppointments();
     $.get("/api/appointments/table/" + id, function (data) {
-        console.log(data);
+        // console.log(data);
         // console.log(data[0].note)
         if (data != "") {
             $(".tableBody").empty();
@@ -90,7 +90,7 @@ endUpdate.addEventListener("keyup", function (event) {
 $("#delete-btn").on("click", function (event) {
     event.preventDefault();
     var id = $(this).data("id");
-    if (confirm("Delete This Appointment? This Cannot Be Un-Done")) {
+    if (confirm("Delete This Appointment? This Cannot Be Un-Done!!")) {
         deleteAppointment(id);
     }
 
