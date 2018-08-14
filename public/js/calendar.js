@@ -112,8 +112,8 @@ $(document).ready(function () {
                 appointment.start = moment(event.start._d).format("YYYY/MM/DD");
                 appointment.end = moment(event.start._d).format("YYYY/MM/DD");
             } else {
-                appointment.start = moment(event.start._d).format("YYYY/MM/DD HH:mm:ss");
-                appointment.end = moment(event.end._d).format("YYYY/MM/DD HH:mm:ss");
+                appointment.start = moment(event.start._d).add(6, "hours").format("YYYY/MM/DD HH:mm:ss");
+                appointment.end = moment(event.end._d).add(6, "hours").format("YYYY/MM/DD HH:mm:ss");
             }
             appointment.title = event.title;
 
