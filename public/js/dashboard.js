@@ -90,7 +90,7 @@ endUpdate.addEventListener("keyup", function (event) {
 $("#delete-btn").on("click", function (event) {
     event.preventDefault();
     var id = $(this).data("id");
-    if (!confirm("Delete This Appointment? This Cannot Be Un-Done")) {
+    if (confirm("Delete This Appointment? This Cannot Be Un-Done")) {
         deleteAppointment(id);
     }
 
