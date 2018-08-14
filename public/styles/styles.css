@@ -11,7 +11,7 @@
 }
 
 .logOut {
-  padding-right:25px !important;
+  padding-right: 25px !important;
 }
 
 .list-group-item {
@@ -76,7 +76,8 @@
   border-radius: 10px !important;
   background-color: rgba(255, 255, 255, 0.92) !important;
 }
-img{
+
+img {
   border-top-left-radius: 10px !important;
   border-top-right-radius: 10px !important;
 }
@@ -88,6 +89,7 @@ img{
 table.striped>tbody>tr:nth-child(odd) {
   background-color: rgba(160, 160, 160, 0.646) !important;
 }
+
 .tableBody {
   display:block;
   height:320px;
