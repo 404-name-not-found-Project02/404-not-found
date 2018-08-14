@@ -89,15 +89,15 @@ $(document).ready(function () {
             if (event.allDay) {
                 //need to fix this timezone issue... .add(1, "day") is a temp fix.
                 console.log(event.allDay)
-                appointment.start = moment(event.start._i).local().format("YYYY/MM/DD");
-                appointment.end = moment(event.end._i).local().format("YYYY/MM/DD");
+                appointment.start = moment(event.start._i).utc().format("YYYY/MM/DD");
+                appointment.end = moment(event.end._i).utc().format("YYYY/MM/DD");
             } else {
-                appointment.start = moment(event.start._i).local().format("YYYY/MM/DD HH:mm:ss");
+                appointment.start = moment(event.start._i).utc().format("YYYY/MM/DD HH:mm:ss");
                 if (event.end != null) {
-                    appointment.end = moment(event.end._i).local().format("YYYY/MM/DD HH:mm:ss");
+                    appointment.end = moment(event.end._i).utc().format("YYYY/MM/DD HH:mm:ss");
                 } else {
                     //appointment.end = moment(event.start._d).add(6.5, "hours").format("YYYY/MM/DD HH:mm");
-                    appointment.end = moment(event.end._i).add(30, "m").local().format("YYYY/MM/DD HH:mm:ss");
+                    appointment.end = moment(event.end._i).add(30, "m").utc().format("YYYY/MM/DD HH:mm:ss");
                 }
             }
             console.log(appointment)
