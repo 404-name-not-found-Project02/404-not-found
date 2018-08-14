@@ -75,7 +75,10 @@ $(document).on("click", "#edit-btn", editAppt);
 $("#delete-btn").on("click", function (event) {
     event.preventDefault();
     var id = $(this).data("id");
-    deleteAppointment(id);
+    if (!confirm("Delete This Appointment? This Cannot Be Un-Done")) {
+        deleteAppointment(id);
+    }
+
 })
 
 $("#addApptBtn").on("click", function () {
