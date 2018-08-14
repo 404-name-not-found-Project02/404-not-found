@@ -7,7 +7,6 @@ module.exports = function (sequelize, DataTypes) {
     note: {
       type: DataTypes.STRING,
       is: /^[a-z]+$/i,
-      allowNull: true,
     },
     provider_id: DataTypes.STRING,
   },

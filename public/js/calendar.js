@@ -1,3 +1,4 @@
+var calendarObject = {}
 
 $(document).ready(function () {
     M.AutoInit();
@@ -29,6 +30,7 @@ $(document).ready(function () {
         //},
         eventClick: function (calEvent, jsEvent, view) {
             // console.log($.fullCalendar.moment(calEvent.start._d).utc());
+            calendarObject = calEvent;
             $("#modal-btn").data("event", "update");
             $("#modal-btn").text("Update");
             $("#delete-btn").css("visibility", "visible");
@@ -38,17 +40,18 @@ $(document).ready(function () {
             $("#newAppt").modal("open");
             $("input").val("");
             $("label").addClass("active")
-            $("#start").data("time", calEvent.start);
-            $("#end").data("time", calEvent.end);
+            $("#start").data("time", calEvent.start._i);
+            $("#end").data("time", calEvent.end._i);
             $("#client_name").val(calEvent.title);
             $("#start").val(moment(calEvent.start).format("MMMM Do YYYY, h:mm a"));
+            // moment($("#start").data("time")).local().format("YYYY-MM-DD HH:mm:ss")
             $("#end").val(moment(calEvent.end).format("MMMM Do YYYY, h:mm a"));
             $("#client_name").focus();
         },
         select: function (start, end, jsEvent, view) {
             //Intl.DateTimeFormat().resolvedOptions().timeZone
             console.log(moment(start).utc());
-            // console.log(start._d.unix());
+            console.log(start);
             $("#delete-btn").css("visibility", "hidden");
             $("#newAppt").modal("open");
             $("#modal-btn").data("event", "create");
@@ -79,25 +82,27 @@ $(document).ready(function () {
             //console.log(moment(event.start._d).format("YYYY/MM/DD HH:mm:ss"));
             //moment.tz.setDefault("America/New_York");
             //console.log(delta)
+            calendarObject = event;
             var id = event.id;
             var appointment = {};
-            console.log(event);
-            console.log(event.start);
+            appointment.title = event.title;
             if (event.allDay) {
                 //need to fix this timezone issue... .add(1, "day") is a temp fix.
-                appointment.start = moment(event.start._d).add(1, "day").format("YYYY/MM/DD");
-                appointment.end = moment(event.start._d).add(1, "day").format("YYYY/MM/DD");
+                console.log(event.allDay)
+                appointment.start = moment(event.start._i).local().format("YYYY/MM/DD");
+                appointment.end = moment(event.end._i).local().format("YYYY/MM/DD");
             } else {
-                appointment.start = moment(event.start._d).add(6, "hours").format("YYYY/MM/DD HH:mm");
-
+                appointment.start = moment(event.start._i).local().format("YYYY/MM/DD HH:mm:ss");
                 if (event.end != null) {
-                    appointment.end = moment(event.end._d).add(6, "hours").format("YYYY/MM/DD HH:mm");
+                    appointment.end = moment(event.end._i).local().format("YYYY/MM/DD HH:mm:ss");
                 } else {
-                    appointment.end = moment(event.start._d).add(30, 'm').format("YYYY/MM/DD HH:mm");
+                    //appointment.end = moment(event.start._d).add(6.5, "hours").format("YYYY/MM/DD HH:mm");
+                    appointment.end = moment(event.end._i).add(30, "m").local().format("YYYY/MM/DD HH:mm:ss");
                 }
             }
+            console.log(appointment)
             console.log(appointment.start)
-            appointment.title = event.title;
+            console.log(appointment.end)
 
             if (!confirm("Are you sure about this change?")) {
                 revertFunc();
@@ -110,15 +115,19 @@ $(document).ready(function () {
             //console.log(moment(event.start._d).format("YYYY/MM/DD HH:mm:ss"));
             var id = event.id;
             var appointment = {};
-            console.log(event);
+            calendarObject = event
+            // console.log(event);
             if (event.allDay) {
                 appointment.start = moment(event.start._d).format("YYYY/MM/DD");
                 appointment.end = moment(event.start._d).format("YYYY/MM/DD");
             } else {
-                appointment.start = moment(event.start._d).add(6, "hours").format("YYYY/MM/DD HH:mm:ss");
-                appointment.end = moment(event.end._d).add(6, "hours").format("YYYY/MM/DD HH:mm:ss");
+                appointment.start = moment(event.start._i).utc().format("YYYY/MM/DD HH:mm:ss");
+                appointment.end = moment(event.end._i).utc().format("YYYY/MM/DD HH:mm:ss");
             }
             appointment.title = event.title;
+            console.log(appointment)
+            console.log(appointment.start)
+            console.log(appointment.end)
 
             if (!confirm("Are you sure about this change?")) {
                 revertFunc();
@@ -158,7 +167,7 @@ $(document).ready(function () {
                                 end: $(this).attr('end'),
                             });
                         }
-                        //console.log(events)
+                        // console.log(events)
                     });
                     callback(events);
                 }
@@ -258,7 +267,7 @@ $("#modal-btn").on("click", function (event) {
     var eventType = $("#modal-btn").data("event");
     switch (eventType) {
         case "update":
-            //console.log(eventType)
+            console.log($("#end").data("end"))
             var id = $("#modal-btn").data("id");
             var start = moment($("#start").val().trim(), "MMM Do YYYY HH:mm a").format();
             var end = moment($("#end").val().trim(), "MMM Do YYYY HH:mm a").format();
