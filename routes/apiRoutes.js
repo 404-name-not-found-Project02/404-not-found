@@ -35,7 +35,10 @@ module.exports = function (app) {
         provider_id: req.params.id,
         start: { $gte: moment().subtract(1, 'days').toDate() }
       },
-      attributes: ['id', 'title', 'start', 'end']
+      attributes: ['id', 'title', 'start', 'end', 'note'],
+      order: [
+        ['start', 'ASC'],
+      ],
     }).then(function (dbAppointments) {
       res.json(dbAppointments);
     });

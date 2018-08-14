@@ -91,25 +91,66 @@ table.striped>tbody>tr:nth-child(odd) {
 }
 
 .tableBody {
-  display: block;
-  height: 380px;
-  overflow: auto;
-}
-
-.tableHead, .tableBody .tableRow {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-
-/* .tableHead {
+  display:block;
+  height:320px;
+  overflow:auto;
+  }
+  .tableHead, .tableBody .tableRow {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+  }
+  /* .tableHead {
   width: calc( 100% - 1em )
   } */
+  .theTable {
+  width:100%;
+  }
+  .table-btn{
+    width: 75px;
+  }
 
-.theTable {
-  width: 100%;
-}
+  /* testing shit */
 
-.table-btn {
-  width: 75px;
-}
+
+  
+  .profile-pic {
+      max-width: 200px;
+      max-height: 200px;
+      display: block;
+  }
+  
+  .file-upload {
+      /* display: none; */
+  }
+  .circle {
+      border-radius: 1000px !important;
+      overflow: hidden;
+      width: 128px;
+      height: 128px;
+      border: 8px solid rgba(0, 0, 0, 0.7);
+      position: absolute;
+      top: 72px;
+  }
+  img {
+      max-width: 100%;
+      height: auto;
+  }
+  .p-image {
+    /* position: absolute; */
+    top: 167px;
+    right: 30px;
+    color: #2e2e2e;
+    /* transition: all .3s cubic-bezier(.175, .885, .32, 1.275); */
+  }
+  .p-image:hover {
+    /* transition: all .3s cubic-bezier(.175, .885, .32, 1.275); */
+  }
+  .upload-button {
+    font-size: 1.2em;
+  }
+  
+  .upload-button:hover {
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+    color: #999;
+  }
