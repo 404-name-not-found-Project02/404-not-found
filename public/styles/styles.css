@@ -82,9 +82,20 @@ img {
   border-top-right-radius: 10px !important;
 }
 
-/* #upload{
+#submit, #upload{
   display: none;
-} */
+}
+
+#upload-photo-label {
+  border: 1px solid #cccccc;
+  padding: 5px 30px;
+  font-family:arial;
+  font-size: 13px;
+}
+
+#upload-photo-label:active{
+  background: #ccc;
+}
 
 table.striped>tbody>tr:nth-child(odd) {
   background-color: rgba(160, 160, 160, 0.646) !important;

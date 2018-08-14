@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <!-- for calendar -->
     <link href='./lib/fullcalendar.min.css' rel='stylesheet' />
@@ -84,19 +85,19 @@
             <div class="col s12 m12 l3">
                 <div class="card large z-depth-5" style="max-width: 350px;">
                     <div class="card-image">
-                        <img src="./images/photo_template.jpg" style="max-height: 350px; max-width: 350px;">
+                        <img id="profileImage" src="./images/photo_template.jpg" style="max-height: 350px; max-width: 350px;">
                     </div>
                     <div class="card-content">
                         <p id="providerName" class="profileName center" style="font-family: 'Homemade Apple', cursive;"></p>
                     </div>
-                    <!-- <div class="center-align">
-                        <form action="/api/upload" enctype="multipart/form-data" method="POST">
+                    <div class="center-align">
+                        <form id="imageForm" enctype="multipart/form-data" method="POST">
                             <input type="file" name="photo" id="upload">
-                            <a class="waves-effect waves-light btn" id="upload-btn">Upload Photo</a>
-                            <input type="submit" name="submit" id="submit-btn">
+                            <label id="upload-photo-label" for="upload">Browse</label>
+                            <input type="submit" name="submit" id="submit">
                             <a class="waves-effect waves-light btn" id="upload-btn">Upload Photo</a>
                         </form>
-                    </div> -->
+                    </div>
                 </div>
             </div>
 

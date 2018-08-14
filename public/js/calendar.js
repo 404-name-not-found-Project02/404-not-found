@@ -190,12 +190,6 @@ function createAppointment(appointment, callback) {
 
 }
 
-$("#upload-btn").on("click", function (e) {
-    //console.log("clicked me")
-    e.preventDefault();
-    $("#upload:hidden").trigger("click");
-})
-
 function getAppointments(id) {
     //id = 1;
     $.get("/api/appointments/" + id, function (data) {

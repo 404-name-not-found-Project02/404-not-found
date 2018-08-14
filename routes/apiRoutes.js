@@ -6,10 +6,10 @@ var moment = require("moment");
 
 var storage = googleStorage({
   projectId: "name-not-found",
-  keyFilename: "AIzaSyCpvCQBKnLUqbjDild7Tl9f_o1aVG9bZEs"
+  keyFilename: "404-name-not-found-c00295caa4a3.json"
 });
 
-var bucket = storage.bucket("https://console.cloud.google.com/storage/browser/name-not-found.appspot.com?project=name-not-found");
+var bucket = storage.bucket("name-not-found.appspot.com");
 
 var multer = Multer({
   storage: Multer.memoryStorage(),
@@ -92,52 +92,46 @@ module.exports = function (app) {
   });
 
 
-  app.post("/api/upload", multer.single("photo"), (req, res) => {
+  app.post("/api/upload/:id", multer.single("photo"), (req, res) => {
     console.log("Upload Image");
 
     let file = req.file;
-    if (file) {
-      uploadImageToStorage(file).then((success) => {
-        res.status(200).send({
-          status: "success"
-        });
-      }).catch((error) => {
-        console.error(error);
-      });
+    if (!file) {
+      reject("No image file");
     }
+    let newFileName = `ProfileIMG_${req.params.id}`;
+
+    let fileUpload = bucket.file(newFileName);
+
+    const blobStream = fileUpload.createWriteStream({
+      metadata: {
+        contentType: file.mimetype
+      }
+    }).on("error", (error) => {
+      console.log(error);
+      res.status(500).send({
+        status: "Error"
+      });
+    }).on("finish", () => {
+      // The public URL can be used to directly access the file via HTTP.
+      res.status(200).send({
+        status: "success"
+      });
+    }).end(file.buffer);
   });
 
+  app.get("/api/upload/:id", function (req, res) {
+    let fileName = `ProfileIMG_${req.params.id}`;
 
+    let file = bucket.file(fileName);
 
-  const uploadImageToStorage = (file) => {
-    let prom = new Promise((resolve, reject) => {
-      if (!file) {
-        reject("No image file");
-      }
-      let newFileName = `${file.originalname}_${Date.now()}`;
+    file.exists().then(function (data) {
+      var doesExist = false;
+      if (data[0])
+        doesExist = true;
 
-      let fileUpload = bucket.file(newFileName);
-
-      const blobStream = fileUpload.createWriteStream({
-        metadata: {
-          contentType: file.mimetype
-        }
-      });
-
-      blobStream.on("error", (error) => {
-        console.log(error);
-        reject("Something is wrong! Unable to upload at the moment.");
-      });
-
-      blobStream.on("finish", () => {
-        // The public URL can be used to directly access the file via HTTP.
-        const url = format(`https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`);
-        resolve(url);
-      });
-
-      blobStream.end(file.buffer);
+      res.status(200).json(data[0]);
     });
-    return prom;
-  }
+  });
 };
 
