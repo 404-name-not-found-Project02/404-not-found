@@ -285,7 +285,11 @@ function updateModalAppt(title, date, time, hour, minute, note, eventType, id) {
     $("#note").val(note);
     $("#modal-btn").data("event", eventType);
     $("#modal-btn").text(eventType);
-    $("#delete-btn").css("visibility", "visible");
+    if (eventType != "create") {
+        $("#delete-btn").css("visibility", "hidden");
+    } else {
+        $("#delete-btn").css("visibility", "visible");
+    };
     $("#modal-btn").data("id", id);
     $("#delete-btn").data("id", id);
     $("#modal-btn").append("<i class='material-icons right'>send</i>");

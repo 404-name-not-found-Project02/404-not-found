@@ -7,8 +7,6 @@ function renderTable() {
     id = localStorage.getItem("provider_id");
     // seedAppointments();
     $.get("/api/appointments/table/" + id, function (data) {
-        // console.log(data);
-        // console.log(data[0].note)
         if (data != "") {
             $(".tableBody").empty();
             data.forEach(function (appointment) {
@@ -17,18 +15,17 @@ function renderTable() {
                     var note = appointment.note
                 } else {
                     var note = "None"
-                }
+                };
                 var tr = $("<tr>");
                 tr.attr("id", appointment.id);
                 tr.addClass("tableRow")
                 var td = $("<td id='client_name" + appointment.id + "' class='tableData'>" + appointment.title + "</td>")
                 $(".tableBody").append(tr);
                 $("#" + appointment.id).append(td);
-                $("#" + appointment.id).append("<td id='start" + appointment.id + "'>" + moment(appointment.start).local().format("MM/DD/YYYY HH:mm") + "</td> ");
-                $("#" + appointment.id).append("<td id='end" + appointment.id + "'>" + moment(appointment.end).local().format("MM/DD/YYYY HH:mm") + "</td>");
+                $("#" + appointment.id).append("<td id='start" + appointment.id + "'>" + moment(appointment.start).local().format("MM/DD/YYYY hh:mm a") + "</td> ");
+                $("#" + appointment.id).append("<td id='end" + appointment.id + "'>" + moment(appointment.end).local().format("MM/DD/YYYY hh:mm a") + "</td>");
                 $("#" + appointment.id).append("<td id='note" + appointment.id + "'>" + note + "</td>");
                 $("#" + appointment.id).append("<td class='table-btn'><a href='#!' class='waves-effect waves-light btn' id='edit-btn' data-id='" + appointment.id + "'>Edit</a></td> ");
-
             });
 
             $(".btn-floating").removeClass("pulse")
