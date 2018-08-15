@@ -1,5 +1,5 @@
-var calendarObject = {}
-
+var calendarObject = {};
+var gAppointments = {};
 $(document).ready(function () {
     M.AutoInit();
     $('#calendar').fullCalendar({
@@ -19,60 +19,66 @@ $(document).ready(function () {
             // days of week. an array of zero-based day of week integers (0=Sunday)
             dow: [0, 1, 2, 3, 4, 5, 6], // Monday - Thursday
 
-            start: '06:00', // a start time (10am in this example)
-            end: '19:00', // an end time (6pm in this example)
+            start: '06:00', // a start time (6am in this example)
+            end: '19:00', // an end time (7pm in this example)
         },
-        //dayClick: function(date) {
-        //alert('clicked ' + date.format());
-        //},
-        //select: function (startDate, endDate) {
-        //alert('selected ' + startDate.format() + ' to ' + endDate.format());
-        //},
+
         eventClick: function (calEvent, jsEvent, view) {
             // console.log($.fullCalendar.moment(calEvent.start._d).utc());
-            calendarObject = calEvent;
-            var startUTC = moment(calEvent.start._i).utc().format("YYYY/MM/DD HH:mm:ss");
-            var endUTC = moment(calEvent.end._i).utc().format("YYYY/MM/DD HH:mm:ss");
-            $("#modal-btn").data("event", "update");
-            $("#modal-btn").text("Update");
-            $("#delete-btn").css("visibility", "visible");
-            $("#modal-btn").data("id", calEvent.id);
-            $("#delete-btn").data("id", calEvent.id);
-            $("#modal-btn").append("<i class='material-icons right'>send</i>");
+            console.log("startClick");
             $("#newAppt").modal("open");
-            $("input").val("");
-            $("label").addClass("active")
-            $("#start").data("time", startUTC);
-            $("#end").data("time", endUTC);
-            $("#client_name").val(calEvent.title);
-            $("#start").val(moment(calEvent.start).local().format("MMMM Do YYYY, h:mm a"));
-            // moment($("#start").data("time")).local().format("YYYY-MM-DD HH:mm:ss")
-            $("#end").val(moment(calEvent.end).local().format("MMMM Do YYYY, h:mm a"));
-            $("#client_name").focus();
+            calendarObject = calEvent;
+            var id = calEvent.id;
+            var title = calEvent.title;
+            var date = moment(calEvent.start._i).format("MM/DD/YYYY");
+            var time = moment(calEvent.start._i).format("HH:mm a");
+            var hour = 0;
+            var minute = 0;
+            var note = "";
+            for (let i = 0; i < gAppointments.length; i++) {
+                if (gAppointments[i].id == id) {
+                    note = gAppointments[i].note;
+                };
+            }
+            var eventType = "update";
+            var duration = moment(calEvent.end._i).diff(moment(calEvent.start._i)) / 1000 / 60;
+            if (duration / 60 % 1 == 0) {
+                hour = parseInt(duration / 60);
+                minute = 0;
+                // console.log(parseInt(duration / 60))
+            } else {
+                minute = duration % 60;
+                hour = (duration - minute) / 60;
+                console.log(hour + " " + minute)
+            };
+            updateModalAppt(title, date, time, hour, minute, note, eventType, id);
+            console.log("endClick");
+
         },
         select: function (start, end, jsEvent, view) {
-            //Intl.DateTimeFormat().resolvedOptions().timeZone
-            // console.log(moment(start).utc());
-            // console.log(start);
-            $("#delete-btn").css("visibility", "hidden");
+            console.log("startClick");
             $("#newAppt").modal("open");
-            $("#modal-btn").data("event", "create");
-            $("#modal-btn").text("Submit");
-            $("#modal-btn").append("<i class='material-icons right'>send</i>");
-            $("input").val("");
-            $("label").addClass("active");
-            $("#start").data("time", start);
-            $("#end").data("time", end);
-            if (start.hasTime()) {
-                var displayStart = moment(start).format("MMMM Do YYYY, h:mm a");
-                var displayEnd = moment(end).format("MMMM Do YYYY, h:mm a");
+            // calendarObject = calEvent;
+            var id = "";
+            var title = "";
+            var date = moment(start).format("MM/DD/YYYY");
+            var time = moment(start).format("HH:mm a");
+            var hour = 1;
+            var minute = 0;
+            var note = "";
+            var eventType = "create";
+            var duration = moment(end).diff(moment(start)) / 1000 / 60;
+            if (duration / 60 % 1 == 0) {
+                hour = parseInt(duration / 60);
+                minute = 0;
+                // console.log(parseInt(duration / 60))
             } else {
-                var displayStart = moment(start).format("MMMM Do YYYY");
-                var displayEnd = moment(end).format("MMMM Do YYYY");
-            }
-            $("#start").val(displayStart);
-            $("#end").val(displayEnd);
-            $("#client_name").focus();
+                minute = duration % 60;
+                hour = (duration - minute) / 60;
+                console.log(hour + " " + minute)
+            };
+            updateModalAppt(title, date, time, hour, minute, note, eventType, id);
+            console.log("endClick");
         },
         //dayClick: function (date, allDay, jsEvent, view) {
         //console.log("this is the day click function")
@@ -80,17 +86,11 @@ $(document).ready(function () {
         editable: true,
         eventLimit: true,
         eventDrop: function (event, delta, revertFunc) {
-
-            //console.log(moment(event.start._d).format("YYYY/MM/DD HH:mm:ss"));
-            //moment.tz.setDefault("America/New_York");
-            //console.log(delta)
             calendarObject = event;
             var id = event.id;
             var appointment = {};
             appointment.title = event.title;
             if (event.allDay) {
-                //need to fix this timezone issue... .add(1, "day") is a temp fix.
-                // console.log(event.allDay)
                 appointment.start = moment(event.start._i).utc().format("YYYY/MM/DD");
                 appointment.end = moment(event.end._i).utc().format("YYYY/MM/DD");
             } else {
@@ -98,14 +98,9 @@ $(document).ready(function () {
                 if (event.end != null) {
                     appointment.end = moment(event.end._i).utc().format("YYYY/MM/DD HH:mm:ss");
                 } else {
-                    //appointment.end = moment(event.start._d).add(6.5, "hours").format("YYYY/MM/DD HH:mm");
                     appointment.end = moment(event.end._i).add(30, "m").utc().format("YYYY/MM/DD HH:mm:ss");
                 }
-            }
-            // console.log(appointment)
-            // console.log(appointment.start)
-            // console.log(appointment.end)
-
+            };
             if (!confirm("Are you sure about this change?")) {
                 revertFunc();
             } else {
@@ -114,11 +109,9 @@ $(document).ready(function () {
 
         },
         eventResize: function (event, jsEvent, ui, view) {
-            //console.log(moment(event.start._d).format("YYYY/MM/DD HH:mm:ss"));
             var id = event.id;
             var appointment = {};
-            calendarObject = event
-            // console.log(event);
+            calendarObject = event;
             if (event.allDay) {
                 appointment.start = moment(event.start._d).format("YYYY/MM/DD");
                 appointment.end = moment(event.start._d).format("YYYY/MM/DD");
@@ -127,10 +120,6 @@ $(document).ready(function () {
                 appointment.end = moment(event.end._i).utc().format("YYYY/MM/DD HH:mm:ss");
             }
             appointment.title = event.title;
-            // console.log(appointment)
-            // console.log(appointment.start)
-            // console.log(appointment.end)
-
             if (!confirm("Are you sure about this change?")) {
                 revertFunc();
             } else {
@@ -142,15 +131,8 @@ $(document).ready(function () {
             $.ajax({
                 method: "GET",
                 url: "/api/appointments/" + localStorage.getItem("provider_id"),
-                //data: {
-                ////our hypothetical feed requires UNIX timestamps
-                //start: start.unix(),
-                //end: end.unix()
-                //},
                 success: function (doc) {
                     var events = [];
-                    //console.log("outside the each");
-                    //console.log(doc);
                     $(doc).each(function () {
                         //console.log($(this).attr('end'));
                         if ($(this).attr('start') === $(this).attr('end')) {
@@ -158,6 +140,7 @@ $(document).ready(function () {
                                 id: $(this).attr('id'),
                                 title: $(this).attr('title'),
                                 start: $(this).attr('start'),
+                                note: $(this).attr('note'),
                                 allDay: true,
                                 timezone: timezone,
                             });
@@ -167,6 +150,7 @@ $(document).ready(function () {
                                 title: $(this).attr('title'),
                                 start: $(this).attr('start'),
                                 end: $(this).attr('end'),
+                                note: $(this).attr('note'),
                             });
                         }
                         // console.log(events)
@@ -177,7 +161,7 @@ $(document).ready(function () {
         }
 
     });
-
+    getAppointments(localStorage.getItem("provider_id"));
 });
 
 function createAppointment(appointment, callback) {
@@ -194,18 +178,12 @@ function getAppointments(id) {
     //id = 1;
     $.get("/api/appointments/" + id, function (data) {
         if (data) {
+            gAppointments = data;
             $('#calendar').fullCalendar({
                 events: [data]
             });
-            //console.log(data)
+
             $("#calendar").fullCalendar("refetchEvents");
-            //If this post exists, prefill our cms forms with its data
-            //titleInput.val(data.title);
-            //bodyInput.val(data.body);
-            //postCategorySelect.val(data.category);
-            ////If we have a post with this id, set a flag for us to know to update the post
-            ////when we hit submit
-            //updating = true;
         }
     });
 };
@@ -264,37 +242,30 @@ $("#modal-btn").on("click", function (event) {
     var eventType = $("#modal-btn").data("event");
     switch (eventType) {
         case "update":
-            // console.log($("#end").data("time"))
             var id = $("#modal-btn").data("id");
-            // console.log(id)
-            var start = moment(moment($("#start").val().trim(), "MMM Do YYYY HH:mm a").format("YYYY/MM/DD HH:mm:ss")).utc().format();
-            var end = moment(moment($("#end").val().trim(), "MMM Do YYYY HH:mm a").format("YYYY/MM/DD HH:mm:ss")).utc().format();
+            var timeInMins = parseInt($("#duration-hour").val().trim() * 60) + parseInt($("#duration-min").val().trim());
+            var start = moment($("#start").val().trim() + " " + $("#start-time").val().trim()).utc().format("YYYY/MM/DD HH:mm:ss")
+            var end = moment($("#start").val().trim() + " " + $("#start-time").val().trim()).add(parseInt(timeInMins), "m").utc().format("YYYY/MM/DD HH:mm:ss")
             var appointment = {};
             appointment.start = start;
             appointment.end = end;
             appointment.title = $("#client_name").val().trim();
             appointment.note = $("#note").val().trim();
-            // console.log(appointment);
-            //appointment.provider_id = localStorage.getItem("provider_id");
-            ////console.log(appointment);
-            // console.log("updating the appointment")
             updateAppointment(id, appointment);
+            M.toast({ html: 'Appointment Updated!', classes: 'rounded' });
             break;
         case "create":
-            //console.log(eventType)
-            var start = $("#start").val().trim();
-            var end = $("#end").val().trim();
             var appointment = {};
-            var start = moment($("#start").val().trim(), "MMM Do YYYY HH:mm a").format();
-            var end = moment($("#end").val().trim(), "MMM Do YYYY HH:mm a").format();
-            appointment.start = moment(start).format();
-            appointment.end = moment(end).format();
+            var timeInMins = parseInt($("#duration-hour").val().trim() * 60) + parseInt($("#duration-min").val().trim());
+            var start = moment($("#start").val().trim() + " " + $("#start-time").val().trim()).utc().format("YYYY/MM/DD HH:mm:ss")
+            var end = moment($("#start").val().trim() + " " + $("#start-time").val().trim()).add(parseInt(timeInMins), "m").utc().format("YYYY/MM/DD HH:mm:ss")
+            appointment.start = start
+            appointment.end = end
             appointment.title = $("#client_name").val().trim();
             appointment.note = $("#note").val().trim();
             appointment.provider_id = localStorage.getItem("provider_id");
-            //console.log(appointment);
             createAppointment(appointment);
-
+            M.toast({ html: 'Appointment Created!', classes: 'rounded' });
             break;
         default:
             break;
@@ -303,3 +274,23 @@ $("#modal-btn").on("click", function (event) {
 
 })
 
+function updateModalAppt(title, date, time, hour, minute, note, eventType, id) {
+    console.log("Update modal");
+    $("input").val("");
+    $("#client_name").val(title);
+    $("#start").val(date);
+    $("#start-time").val(time)
+    $("#duration-hour").val(hour);
+    $("#duration-min").val(minute);
+    $("#note").val(note);
+    $("#modal-btn").data("event", eventType);
+    $("#modal-btn").text(eventType);
+    $("#delete-btn").css("visibility", "visible");
+    $("#modal-btn").data("id", id);
+    $("#delete-btn").data("id", id);
+    $("#modal-btn").append("<i class='material-icons right'>send</i>");
+    $("label").addClass("active")
+    $("#client_name").focus();
+    console.log("end update modal");
+
+}

@@ -166,13 +166,24 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='input-field col s6'>
-                                <input id='start' type='text' class='validate'>
-                                <label for='start'>Start:</label>
+                            <div class='input-field col s4'>
+                                <input id="start" type="text" class="datepicker">
+                                <label for="start">Start Date:</label>
                             </div>
-                            <div class='input-field col s6'>
-                                <input id='end' type='text' class='validate'>
-                                <label for='end'>End:</label>
+                            <div class='input-field col s2'>
+                                <input id="start-time" type="text" class="timepicker">
+                                <label for="start-time">Start Time:</label>
+                            </div>
+                            <div class='input-field col s3'>
+                                <input id="duration-hour" type="number" placeholder="Hours" step="1" min="0" max="24" class="size-36 center-align validate tooltipped"
+                                    data-position="bottom" data-tooltip="Hour">
+                                <label>Appointment Duration</label>
+                                <span class="helper-text" data-error="Between 0 and 24 Hours." data-success=""></span>
+                            </div>
+                            <div class='input-field col s3'>
+                                <input id="duration-min" type="number" placeholder="Minutes" step="1" min="0" max="60" class="size-36 center-align validate tooltipped"
+                                    data-position="bottom" data-tooltip="Minute">
+                                <span class="helper-text" data-error="Between 0 and 60 Minutes." data-success=""></span>
                             </div>
                         </div>
                         <div class='row'>
@@ -181,8 +192,8 @@
                                 <label for='note'>Note (optional):</label>
                             </div>
                             <div class='modal-footer center-align'>
-                                <a href='#!' data-id="" class='waves-effect red waves-light btn modal-action modal-close left' id='delete-btn'>Delete</a>
-                                <a href='#!' data-id="" class='waves-effect waves-light btn modal-action modal-close' id='modal-btn'>Submit
+                                <a href='#!' data-id=" " class='waves-effect red waves-light btn modal-action modal-close left' id='delete-btn'>Delete</a>
+                                <a href='#!' data-id=" " class='waves-effect waves-light btn modal-action modal-close' id='modal-btn'>Submit
                                     <i class='material-icons right'>send</i>
                                 </a>
                             </div>
@@ -196,11 +207,11 @@
 
 
     <!-- calendar -->
-    <div class="container">
-        <div class="row calendar">
-            <div class="col s12 m12 l12">
-                <div class="card center-align">
-                    <div class="card-content">
+    <div class="container ">
+        <div class="row calendar ">
+            <div class="col s12 m12 l12 ">
+                <div class="card center-align ">
+                    <div class="card-content ">
                         <div id='calendar'></div>
                     </div>
                 </div>
@@ -208,18 +219,26 @@
         </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
-    <script src="js/index.js" type="text/javascript"></script>
-    <script src="js/login.js" type="text/javascript"></script>
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js "></script>
+    <script src="js/index.js " type="text/javascript "></script>
+    <script src="js/login.js " type="text/javascript "></script>
     <script>checkIfSignedIn()</script>
-    <script src="js/validate.js" type="text/javascript"></script>
-    <script src="js/dashboard.js" type="text/javascript"></script>
-    <script src="js/calendar.js" type="text/javascript"></script>
+    <script src="js/validate.js " type="text/javascript "></script>
+    <script src="js/dashboard.js " type="text/javascript "></script>
+    <script src="js/calendar.js " type="text/javascript "></script>
     <script>
 
         $(document).ready(function () {
             M.AutoInit();
-
+            $('.datepicker').datepicker({
+                container: "body ",
+                format: "mm/dd/yyyy "
+            });
+            $('.timepicker').timepicker({
+                container: "body ",
+            });
         });
 
     </script>
