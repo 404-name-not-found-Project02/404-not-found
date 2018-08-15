@@ -41,29 +41,29 @@ function renderTable() {
 // edit appointment function
 function editAppt(event) {
     event.preventDefault();
+
+    console.log("startClick");
     $("#newAppt").modal("open");
     var id = $(this).data("id");
-    var start = $("#start" + id).text();
-    var end = $("#end" + id).text();
     var title = $("#client_name" + id).text();
+    var date = moment($("#start" + id).text()).format("MM/DD/YYYY");
+    var time = moment($("#start" + id).text()).format("hh:mm a");
     var note = $("#note" + id).text();
-    $("input").val("");
-    $("label").addClass("active");
-    $("#start").data("time", moment(start).utc().format("YYYY/MM/DD HH:mm:ss"));
-    $("#end").data("time", moment(end).utc().format("YYYY/MM/DD HH:mm:ss"));
-    $("#client_name").val(title);
-    $("#note").val(note);
-    var displayStart = moment(start).format("MMMM Do YYYY, h:mm a");
-    var displayEnd = moment(end).format("MMMM Do YYYY, h:mm a");
-    $("#start").val(displayStart);
-    $("#end").val(displayEnd);
-    $("#delete-btn").data("id", id);
-    $("#delete-btn").css("visibility", "visible");
-    $("#modal-btn").data("event", "update");
-    $("#modal-btn").data("id", id);
-    $("#modal-btn").text("Update");
-    $("#modal-btn").append("<i class='material-icons right'>send</i>");
-    $("#client_name").focus();
+    var start = $("#start" + id).text();
+    var end = $("#end" + id).text()
+    var eventType = "update";
+    var duration = moment(end).diff(moment(start)) / 1000 / 60;
+    if (duration / 60 % 1 == 0) {
+        hour = parseInt(duration / 60);
+        minute = 0;
+        // console.log(parseInt(duration / 60))
+    } else {
+        minute = duration % 60;
+        hour = (duration - minute) / 60;
+        console.log(hour + " " + minute)
+    };
+    updateModalAppt(title, date, time, hour, minute, note, eventType, id);
+    console.log("endClick");
 
 };
 
