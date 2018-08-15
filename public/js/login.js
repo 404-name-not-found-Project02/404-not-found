@@ -1,5 +1,5 @@
 // import { SSL_OP_CIPHER_SERVER_PREFERENCE } from "constants";
-var provider_id;
+var provider_id = "";
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyAStUYCK4F4Tc14FfGOWDRVlgxHdvwxwpo",
@@ -25,13 +25,18 @@ $("#signup-btn").on("click", function (event) {
     //console.log("clicked the button");
 });
 
-var login = document.getElementById("password");
-login.addEventListener("keyup", function (event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-        document.getElementById("login-btn").click();
-    }
-});
+try {
+    var login = document.getElementById("password");
+    login.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            document.getElementById("login-btn").click();
+        }
+    });
+} catch (error) {
+    console.log(error)
+}
+
 
 function signUp() {
     firebase.auth().createUserWithEmailAndPassword(userName, password).catch(function (error) {
@@ -185,11 +190,6 @@ function handleSignUp() {
     // [END createwithemail]
 }
 
-$(document).ready(function () {
-    //console.log(firebase.auth())
-    getProvider(localStorage.getItem("provider_id"));
-});
-
 function createUser(provider) {
     $.post("/api/providers", provider, function () {
     }).then(function () {
@@ -212,3 +212,9 @@ function checkIfSignedIn() {
 
     });
 }
+
+$(document).ready(function () {
+    //console.log(firebase.auth())
+    getProvider(localStorage.getItem("provider_id"));
+    console.log("doc ready")
+});

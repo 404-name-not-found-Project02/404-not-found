@@ -23,7 +23,7 @@ module.exports = function (app) {
   app.get("/api/appointments/:id", function (req, res) {
     db.Appointments.findAll({
       where: { provider_id: req.params.id },
-      attributes: ['id', 'title', 'start', 'end']
+      attributes: ['id', 'title', 'start', 'end', 'note']
     }).then(function (dbAppointments) {
       res.json(dbAppointments);
     });

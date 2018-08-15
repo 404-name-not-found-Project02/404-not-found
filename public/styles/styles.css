@@ -124,3 +124,7 @@ table.striped>tbody>tr:nth-child(odd) {
   #addApptBtn{
     background-color: #648c9f !important;
   }
+
+  .size-36 {
+    font-size: 36px !important;
+    }

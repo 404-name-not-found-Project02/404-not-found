@@ -79,13 +79,13 @@ noteUpdate.addEventListener("keyup", function (event) {
         document.getElementById("modal-btn").click();
     }
 });
-var endUpdate = document.getElementById("end");
-endUpdate.addEventListener("keyup", function (event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-        document.getElementById("modal-btn").click();
-    }
-});
+// var endUpdate = document.getElementById("end");
+// endUpdate.addEventListener("keyup", function (event) {
+//     event.preventDefault();
+//     if (event.keyCode === 13) {
+//         document.getElementById("modal-btn").click();
+//     }
+// });
 
 $("#delete-btn").on("click", function (event) {
     event.preventDefault();
@@ -97,22 +97,30 @@ $("#delete-btn").on("click", function (event) {
 })
 
 $("#addApptBtn").on("click", function () {
+    var date = moment().format("MM/DD/YYYY");
+    var time = moment().format("hh:00 a");
+    var hour = 1
+    var minute = 0
+    var eventType = "create"
     $("#newAppt").modal("open");
-    $("input").val("");
-    $("label").addClass("active");
-    var displayStart = moment().format("MMMM Do YYYY, h:mm a");
-    var displayEnd = moment().format("MMMM Do YYYY, h:mm a");
-    $("#start").val(displayStart);
-    $("#end").val(displayEnd);
-    $("#delete-btn").css("visibility", "hidden");
-    $("#modal-btn").data("event", "create");
-    $("#modal-btn").text("Create");
-    $("#modal-btn").append("<i class='material-icons right'>send</i>");
-    $("#client_name").focus();
+    updateModalAppt("", date, time, hour, minute, "", eventType, "")
+    // $("#newAppt").modal("open");
+    // $("input").val("");
+    // $("label").addClass("active");
+    // // var displayStart = moment().format("MMMM Do YYYY, h:mm a");
+    // // var displayEnd = moment().format("MMMM Do YYYY, h:mm a");
+    // // $("#start").val(displayStart);
+    // // $("#end").val(displayEnd);
+    // $("#delete-btn").css("visibility", "hidden");
+    // $("#modal-btn").data("event", "create");
+    // $("#modal-btn").text("Create");
+    // $("#modal-btn").append("<i class='material-icons right'>send</i>");
+    // $("#client_name").focus();
 })
 
 // document ready function
 $(document).ready(function () {
+
     renderTable();
 
     $("#imageForm").attr("action", "/api/upload/" + localStorage.getItem("provider_id"));
